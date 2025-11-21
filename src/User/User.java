@@ -19,6 +19,62 @@ public class User {
         this.lastUpdated = lastUpdated;
     }
 
+    public int getUserID() {
+        return userID;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public double getInitialCash() {
+        return initialCash;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setInitialCash(double initialCash) {
+        this.initialCash = initialCash;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setLastUpdated(String lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
     @Override
     public String toString () {
         return userID + " " + fullName + " " + email + " " + birthDate + " " + initialCash + " " + createdAt + " " + lastUpdated;
