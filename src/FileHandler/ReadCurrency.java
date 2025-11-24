@@ -17,16 +17,15 @@ public class ReadCurrency implements CSVReader {
                 formatedData.add(format(line));
             }
         }catch ( FileNotFoundException e){
-            System.out.println("Budget does not exist.");
+            System.out.println("currency.csv does not exist.");
         }catch ( IOException e){
             System.out.println("ERROR: IOException");
         }
-
         return formatedData;
     }
 
     @Override
     public String[] format(String s) {
-        return new String[0];
+        return s.split(";");
     }
 }

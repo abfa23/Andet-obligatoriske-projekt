@@ -17,7 +17,7 @@ public class ReadStockMarket implements CSVReader {
                 formatedData.add(format(line));
             }
         }catch ( FileNotFoundException e){
-            System.out.println("Budget does not exist.");
+            System.out.println("stockMarket.csv does not exist.");
         }catch ( IOException e){
             System.out.println("ERROR: IOException");
         }
@@ -27,7 +27,7 @@ public class ReadStockMarket implements CSVReader {
 
     @Override
     public String[] format(String s) {
-        return new String[0];
+        return s.split(";");
     }
 }
 
