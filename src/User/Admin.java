@@ -9,9 +9,6 @@ public class Admin {
         this.password = "admin123";
     }
 
-    public Admin() {
-    }
-
     public String getUsername() {
         return username;
     }
