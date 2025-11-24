@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class UserHandling {
 
     public void login() {
+        //sc
         Scanner sc = new Scanner(System.in);
         boolean loggedIn = false;
 
