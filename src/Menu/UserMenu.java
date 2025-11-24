@@ -1,8 +1,8 @@
 package Menu;
 
-public class AdminMenu {
+public class UserMenu {
 
-    public void printMainMenu() {
+    public void printUserMainMenu() {
         System.out.println();
         System.out.println("""
                            Velkommen til start menuen!
