@@ -1,13 +1,14 @@
 package InvestmentClub;
 
 import User.User;
-
+import User.Admin;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserHandling {
+    private ArrayList<User> users = new ArrayList<>();
 
     public void login() {
-        //sc
         Scanner sc = new Scanner(System.in);
         boolean loggedIn = false;
 
@@ -16,15 +17,20 @@ public class UserHandling {
         String valgInput = sc.nextLine();
 
         if (valgInput.equalsIgnoreCase("1")) {
-            userLogin();
+            userLogin(users);
         } else if (valgInput.equalsIgnoreCase("2")) {
             adminLogin();
         } else {
             System.out.println("Du har hverken skrevet 1 eller 2. Prøv igen!");
             login();
         }
+    }
 
-        //login with user
+    public void userLogin(ArrayList<User> users) {
+        Scanner sc = new Scanner(System.in);
+        boolean loggedIn = false;
+
+        //login med user
         System.out.println("Indtast venligst din email for at logge ind.");
         String emailInput = sc.nextLine();
 
@@ -33,19 +39,43 @@ public class UserHandling {
             for (User s : users) {
                 if (s.getEmail().equalsIgnoreCase(emailInput)) {
                     loggedIn = true;
-                    System.out.println("Logged in successfully!");
+                    System.out.println("Logged ind som bruger.");
+                } else {
+                    loggedIn = false;
+                    userLogin(users);
                 }
             }
         }
     }
 
-    public void userLogin() {
-        boolean loggedIn = false;
-
-    }
-
     public void adminLogin() {
+        Scanner sc = new Scanner(System.in);
+        Admin a = new Admin();
         boolean loggedIn = false;
+
+        //login med admin
+        System.out.println("Indtast admin brugernavn.");
+        String usernameInput = sc.nextLine();
+
+        //tjekker hvis username er admin username.
+        boolean correctUserName = false;
+        if (a.getUsername().equals(usernameInput)) {
+            correctUserName = true;
+            System.out.println("Korrekt.");
+        } else {
+            System.out.println("Det er ikke det korrekte username. Kontakt IT, hvis du har glemt dit username!");
+            adminLogin();
+        }
+
+        if (correctUserName == true) {
+            System.out.println("Indtast admin password.");
+            String passwordInput = sc.nextLine();
+
+            if (passwordInput.equals(a.getPassword())) {
+                loggedIn = true;
+                System.out.println("Logged ind som admin.");
+            }
+        }
 
     }
 }
