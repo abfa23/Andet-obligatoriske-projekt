@@ -1,18 +1,20 @@
 package InvestmentClub;
 
 import java.time.LocalDate;
+import User.User;
 
 public class Transactions {
     private int transactionID;
-//    private int userID;
+    private User userID;
     private LocalDate date;
     private String ticker;
     private double price;
     private String orderType;
     private int boughtShares;
 
-    public Transactions(int transactionID, LocalDate date, String ticker, double price, String orderType, int boughtShares) {
+    public Transactions(int transactionID, User userID, LocalDate date, String ticker, double price, String orderType, int boughtShares) {
         this.transactionID = transactionID;
+        this.userID = userID;
         this.date = date;
         this.ticker = ticker;
         this.price = price;
@@ -22,6 +24,10 @@ public class Transactions {
 
     public int getTransactionID() {
         return transactionID;
+    }
+
+    public User getUserID() {
+        return userID;
     }
 
     public LocalDate getDate() {
