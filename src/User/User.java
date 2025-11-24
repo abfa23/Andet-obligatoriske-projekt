@@ -8,6 +8,7 @@ public class User {
     private double initialCash;
     private String createdAt;
     private String lastUpdated;
+    private int
 
     public User(int userID, String fullName, String email, String birthDate, double initialCash, String createdAt, String lastUpdated) {
         this.userID = userID;
@@ -17,6 +18,7 @@ public class User {
         this.initialCash = initialCash;
         this.createdAt = createdAt;
         this.lastUpdated = lastUpdated;
+        this
     }
 
     public int getUserID() {
