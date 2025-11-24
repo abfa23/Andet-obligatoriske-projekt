@@ -1,32 +1,41 @@
 package InvestmentClub;
 
+import com.sun.jdi.Value;
+
 public class Stocks {
+    private int value;
+    private int cost;
+    private String name;
 
-    int stock;
-    String name;
-
-    public Stocks (int stock, String name) {
-        this.stock = stock;
+    public Stocks(int value, int cost, String name) {
+        this.value = value;
+        this.cost = cost;
         this.name = name;
     }
 
-    public int getStock() {
-        return stock;
+    public int getValue() {
+        return value;
+    }
+
+    public int getCost() {
+        return cost;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setStock (int stock) {
-        this.stock = stock;
+    public void setValue(){
+        this.value = value;
     }
-
-    public void setName (String name) {
+    public void setCost(){
+        this.cost = cost;
+    }
+    public void setName(){
         this.name = name;
     }
-
-    public String toString () {
-        return stock + " " + name + ".";
+    @Override
+    public String toString(){
+        return name + " Price: " + cost +" Value: "+ value;
     }
 }
