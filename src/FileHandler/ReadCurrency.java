@@ -8,11 +8,10 @@ import java.util.ArrayList;
 
 public class ReadCurrency implements CSVReader {
     ArrayList<String[]> formatedData = new ArrayList<>();
-    String filename = "src/FileHandler/Database/currency.csv";
 
     @Override
     public ArrayList<String[]> reader(){
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(this.filename))){
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src/FileHandler/Database/currency.csv"))){
             String line;
             while((line = bufferedReader.readLine()) != null){
                 formatedData.add(format(line));
