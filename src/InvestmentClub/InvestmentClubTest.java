@@ -1,5 +1,9 @@
 package InvestmentClub;
 
+import FileHandler.ReadStockMarket;
+
+import java.util.ArrayList;
+
 public class InvestmentClubTest {
     ScannerHelper sh = new ScannerHelper();
 
@@ -7,24 +11,53 @@ public class InvestmentClubTest {
         InvestmentClubTest test = new InvestmentClubTest();
         UserHandling uh = new UserHandling();
         uh.login();
-        test.mainMenuProgram();
+        test.printMainMenu();
+        test.printUserMainMenu();
     }
 
     // Denne metode kører programmet og er "hub" for metoderne.
-    public void mainMenuProgram() {
+    public void printMainMenu() {
         boolean isDone = false;
 
         while (!isDone) {
             printMainMenu();
-            int userChoice = sh.askNumber(11);
+            int userChoice = sh.askNumber(4);
             switch (userChoice) {
                 case 1:
-                    break;
 
+                    break;
                 case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
             }
 
         }
     }
+
+    public void printUserMainMenu() {
+        boolean isDone = false;
+
+        while (!isDone) {
+            printUserMainMenu();
+            int userChoice = sh.askNumber(3);
+            switch (userChoice) {
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+            }
+        }
     }
+}
 
