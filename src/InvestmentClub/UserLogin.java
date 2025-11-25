@@ -5,13 +5,13 @@ import Objects.Admin;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UserHandling {
+public class UserLogin {
 
     //får arraylist af users ind i klassen
     public ArrayList<User> users = new ArrayList<>();
 
     //constructor der modtager users arraylist
-    public UserHandling(ArrayList<String[]> data) {
+    public UserLogin(ArrayList<String[]> data) {
         makeUsers(data, users);
     }
 
