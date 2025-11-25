@@ -13,6 +13,4 @@ public class StockHandling {
         for (String [] stock : stocks);
         System.out.println(stocks);
     }
-
-
 }

@@ -1,8 +1,35 @@
 package Menu;
 
-public class UserMenu {
+import InvestmentClub.ScannerHelper;
+import InvestmentClub.StockHandling;
 
-    public void printUserMainMenu() {
+public class UserMenu {
+    ScannerHelper sh = new ScannerHelper();
+    StockHandling stockHandling = new StockHandling();
+    public void UserMainMenu() {
+        boolean isDone = false;
+
+        while (!isDone) {
+            UserInterface();
+            int userChoice = sh.askNumber(3);
+            switch (userChoice) {
+                case 1:
+                    stockHandling.StockMarket();
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+            }
+        }
+    }
+
+    public void UserInterface() {
         System.out.println();
         System.out.println("""
                            Velkommen til brugermenuen!
