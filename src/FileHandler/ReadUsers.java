@@ -13,6 +13,9 @@ public class ReadUsers implements CSVReader {
     public ArrayList<String[]> reader() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src/FileHandler/Database/users.csv"))) {
             String line;
+            //læser første linje inden while-loop (første linje i CSV filen bliver kasseret)
+            bufferedReader.readLine();
+
             while ((line = bufferedReader.readLine()) != null) {
                 formatedData.add(format(line));
             }

@@ -18,13 +18,13 @@ public class UserHandling {
     //lav string arraylist om til objekt arraylist
     public void makeUsers(ArrayList<String[]> data, ArrayList<User> users) {
         for (String[] strings : data) {
-            int userID = Integer.parseInt(strings[1]);
-            String fullName = strings[2];
-            String email = strings[3];
-            String birthDate = strings[4];
-            double initialCash = Double.parseDouble(strings[5]);
-            String createdAt = strings[6];
-            String lastUpdated = strings[7];
+            int userID = Integer.parseInt(strings[0]);
+            String fullName = strings[1];
+            String email = strings[2];
+            String birthDate = strings[3];
+            double initialCash = Double.parseDouble(strings[4]);
+            String createdAt = strings[5];
+            String lastUpdated = strings[6];
 
             User user = new User(userID, fullName, email, birthDate, initialCash, createdAt, lastUpdated);
             users.add(user);

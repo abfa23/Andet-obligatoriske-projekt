@@ -11,7 +11,7 @@ public class Transactions {
     private String orderType;
     private int boughtShares;
 
-    public Transactions(int transactionID, User userID, LocalDate date, String ticker, double price, String orderType, int boughtShares) {
+    public Transactions(int transactionID, String userID, String date, String ticker, double price, String orderType, int boughtShares) {
         this.transactionID = transactionID;
         this.userID = userID;
         this.date = date;
@@ -25,7 +25,7 @@ public class Transactions {
         return transactionID;
     }
 
-    public User getUserID() {
+    public String getUserID() {
         return userID;
     }
 
