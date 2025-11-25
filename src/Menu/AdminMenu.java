@@ -1,8 +1,30 @@
 package Menu;
 
-public class AdminMenu {
+import InvestmentClub.ScannerHelper;
+import InvestmentClub.StockHandling;
 
-    public void printMainMenu() {
+public class AdminMenu {
+    ScannerHelper sh = new ScannerHelper();
+    public void MainMenu() {
+        boolean isDone = false;
+
+        while (!isDone) {
+            adminInterface();
+            int userChoice = sh.askNumber(4);
+            switch (userChoice) {
+                case 1:
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+            }
+        }
+    }
+
+    public void adminInterface() {
         System.out.println();
         System.out.println("""
                            Velkommen til admin menuen!
