@@ -8,19 +8,37 @@ import java.util.Scanner;
 public class UserHandling {
 
     //får arraylist af users ind i klassen
-    private ArrayList<User> users;
+    public ArrayList<User> users = new ArrayList<>();
 
-    public UserHandling(ArrayList<User> users) {
-        this.users = users;
+    //constructor der modtager users arraylist
+    public UserHandling(ArrayList<String[]> data) {
+        makeUsers(data, users);
     }
+
+    //lav string arraylist om til objekt arraylist
+    public void makeUsers(ArrayList<String[]> data, ArrayList<User> users) {
+        for (String[] strings : data) {
+            int userID = Integer.parseInt(strings[1]);
+            String fullName = strings[2];
+            String email = strings[3];
+            String birthDate = strings[4];
+            double initialCash = Double.parseDouble(strings[5]);
+            String createdAt = strings[6];
+            String lastUpdated = strings[7];
+
+            User user = new User(userID, fullName, email, birthDate, initialCash, createdAt, lastUpdated);
+            users.add(user);
+        }
+    }
+
 
     public void login() {
         Scanner sc = new Scanner(System.in);
 
-        //log ind som user eller 2 for logge ind som bruger
-        System.out.println("Skriv 1 for at logge ind som bruger, og skriv 2 som at logge ind som admin.");
+        System.out.println("Skriv 1 for at logge ind som bruger eller skriv 2 for at logge ind som admin.");
         String choiceInput = sc.nextLine();
 
+        //viderestiller baseret på input til login menu.
         switch (choiceInput) {
             case "1":
                 userLogin();
@@ -49,7 +67,6 @@ public class UserHandling {
                 return;
             }
         }
-
         //fejlet og prøver igen med nyt login
         System.out.println("Kan ikke finde email, prøv igen!");
         userLogin();
