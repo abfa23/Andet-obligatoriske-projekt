@@ -1,4 +1,4 @@
-package User;
+package Objects;
 
 public class Admin {
     private String username;

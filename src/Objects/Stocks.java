@@ -1,7 +1,4 @@
-package InvestmentClub;
-
-import com.sun.jdi.Value;
-import java.util.Comparator;
+package Objects;
 
 public class Stocks implements Comparable<Stocks>{
     private int value;

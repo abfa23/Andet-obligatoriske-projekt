@@ -1,4 +1,4 @@
-package InvestmentClub;
+package Objects;
 
 import java.util.ArrayList;
 import java.util.Collections;

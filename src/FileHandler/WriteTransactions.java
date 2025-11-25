@@ -1,6 +1,6 @@
 package FileHandler;
 
-import InvestmentClub.Transactions;
+import Objects.Transactions;
 
 public class WriteTransactions implements CSVWriter {
 

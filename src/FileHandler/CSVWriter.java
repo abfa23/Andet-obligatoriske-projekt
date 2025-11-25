@@ -1,6 +1,6 @@
 package FileHandler;
 
-import User.User;
+import Objects.User;
 
 public interface CSVWriter {
     public void writer();

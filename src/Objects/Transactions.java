@@ -1,12 +1,11 @@
-package InvestmentClub;
+package Objects;
 
 import java.time.LocalDate;
-import User.User;
 
 public class Transactions {
     private int transactionID;
-    private User userID;
-    private LocalDate date;
+    private String userID; //ikke endeligt
+    private String date;
     private String ticker;
     private double price;
     private String orderType;
@@ -30,7 +29,7 @@ public class Transactions {
         return userID;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 

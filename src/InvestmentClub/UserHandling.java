@@ -1,7 +1,7 @@
 package InvestmentClub;
 
-import User.User;
-import User.Admin;
+import Objects.User;
+import Objects.Admin;
 import java.util.ArrayList;
 import java.util.Scanner;
 

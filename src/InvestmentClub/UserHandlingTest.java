@@ -1,6 +1,5 @@
 package InvestmentClub;
 
-import User.User;
 import FileHandler.ReadUsers;
 import java.util.ArrayList;
 

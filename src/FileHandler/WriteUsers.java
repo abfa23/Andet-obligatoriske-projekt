@@ -1,6 +1,6 @@
 package FileHandler;
 
-import User.User;
+import Objects.User;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
