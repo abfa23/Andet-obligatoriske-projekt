@@ -1,18 +1,31 @@
 package InvestmentClub;
 
+import Menu.AdminMenu;
+import Menu.UserMenu;
 import Objects.User;
 import Objects.Admin;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserLogin {
+    //ved succesfuld login gemmer user objekter og id af personen logget ind
+    private User currentUser;
+    private int currentUserID;
 
-    //får arraylist af users ind i klassen
+    //arraylist af users, lavet ud fra reader string arraylist i makeUsers
     public ArrayList<User> users = new ArrayList<>();
 
-    //constructor der modtager users arraylist
+    //constructor der modtager reader string arraylist
     public UserLogin(ArrayList<String[]> data) {
         makeUsers(data, users);
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public int getCurrentUserID() {
+        return currentUserID;
     }
 
     //lav string arraylist om til objekt arraylist
@@ -31,7 +44,7 @@ public class UserLogin {
         }
     }
 
-
+    //valg af slags login
     public void login() {
         Scanner sc = new Scanner(System.in);
 
@@ -53,10 +66,11 @@ public class UserLogin {
         }
     }
 
+    //bruger login
     public void userLogin() {
         Scanner sc = new Scanner(System.in);
+        UserMenu um = new UserMenu();
 
-        //login med user
         System.out.println("Indtast venligst din email for at logge ind.");
         String emailInput = sc.nextLine();
 
@@ -64,6 +78,9 @@ public class UserLogin {
         for (User s : users) {
             if (s.getEmail().equalsIgnoreCase(emailInput)) {
                 System.out.println("Logged ind som bruger.");
+                this.currentUser = s;
+                this.currentUserID = s.getUserID();
+                um.UserMainMenu();
                 return;
             }
         }
@@ -72,17 +89,18 @@ public class UserLogin {
         userLogin();
     }
 
+    //admin login
     public void adminLogin() {
         Scanner sc = new Scanner(System.in);
         Admin a = new Admin("admin", "admin123");
+        AdminMenu am = new AdminMenu();
         boolean loggedIn = false;
 
         while (!loggedIn) {
-            //login med admin
             System.out.println("Indtast admin brugernavn.");
             String usernameInput = sc.nextLine();
 
-            //tjekker hvis username er admin username.
+            //tjekker hvis username er admin username
             if (!a.getUsername().equals(usernameInput)) {
                 System.out.println("Brugernavnet matcher ikke databasen. Forsøg igen!");
                 continue;
@@ -93,6 +111,7 @@ public class UserLogin {
             System.out.println("Indtast venligst admin password.");
             String passwordInput = sc.nextLine();
 
+            //tjekker om password er admin password
             if (passwordInput.equals(a.getPassword())) {
                 loggedIn = true;
                 System.out.println("Logged ind som admin.");
@@ -100,6 +119,7 @@ public class UserLogin {
                 System.out.println("Password matcher ikke databasen. Forsøg igen!");
             }
         }
+        am.MainMenu();
     }
 }
 
