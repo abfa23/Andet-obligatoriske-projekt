@@ -1,4 +1,6 @@
-package Objects;
+package InvestmentClub;
+import Objects.Transactions;
+
 import java.util.ArrayList;
 
 public class TransactionHistory {
