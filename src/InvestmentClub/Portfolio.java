@@ -1,14 +1,14 @@
 package InvestmentClub;
 
-import Objects.Stocks;
+import Objects.Stock;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Portofolio {
-    private ArrayList<Stocks> stocks = new ArrayList<>();
+public class Portfolio {
+    private ArrayList<Stock> stocks = new ArrayList<>();
 
-    public void addStocks(Stocks stock) {
+    public void addStocks(Stock stock) {
         stocks.add(stock);
     }
 

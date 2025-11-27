@@ -1,11 +1,11 @@
 package Objects;
 
-public class Stocks implements Comparable<Stocks>{
+public class Stock implements Comparable<Stock>{
     private int value;
     private int cost;
     private String name;
 
-    public Stocks(int value, int cost, String name) {
+    public Stock(int value, int cost, String name) {
         this.value = value;
         this.cost = cost;
         this.name = name;
@@ -33,7 +33,7 @@ public class Stocks implements Comparable<Stocks>{
         this.name = name;
     }
     @Override
-    public int compareTo(Stocks other) {
+    public int compareTo(Stock other) {
         return Integer.compare(this.value, other.value);
     }
 

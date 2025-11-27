@@ -1,8 +1,6 @@
 package Objects;
 
-import java.time.LocalDate;
-
-public class Transactions {
+public class Transaction {
     private int transactionID;
     private int userID;
     private String date;
@@ -12,7 +10,7 @@ public class Transactions {
     private String orderType;
     private int boughtShares;
 
-    public Transactions(int transactionID, int userID, String date, String ticker, String price, String currency, String orderType, int boughtShares) {
+    public Transaction(int transactionID, int userID, String date, String ticker, String price, String currency, String orderType, int boughtShares) {
         this.transactionID = transactionID;
         this.userID = userID;
         this.date = date;
