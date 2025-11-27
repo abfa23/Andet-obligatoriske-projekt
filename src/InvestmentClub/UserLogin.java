@@ -5,7 +5,6 @@ import Menu.UserMenu;
 import Objects.User;
 import Objects.Admin;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class UserLogin {
     //ved succesfuld login gemmer user objekter og id af personen logget ind
@@ -14,6 +13,8 @@ public class UserLogin {
 
     //arraylist af users, lavet ud fra reader string arraylist i makeUsers
     public ArrayList<User> users = new ArrayList<>();
+
+    private ScannerHelper sc = new ScannerHelper();
 
     //constructor der modtager reader string arraylist
     public UserLogin(ArrayList<String[]> data) {
@@ -46,33 +47,30 @@ public class UserLogin {
 
     //valg af slags login
     public void login() {
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("Skriv 1 for at logge ind som bruger eller skriv 2 for at logge ind som admin.");
-        String choiceInput = sc.nextLine();
+        int choiceInput = sc.askNumber(2);
 
         //viderestiller baseret på input til login menu.
         switch (choiceInput) {
-            case "1":
+            case 1:
                 userLogin();
                 break;
 
-            case "2":
+            case 2:
                 adminLogin();
                 break;
             default:
-                System.out.println("Skriv enten 1 eller 2, prøv igen.");
+                System.out.println("Uventet fejl!");
                 login();
         }
     }
 
     //bruger login
     public void userLogin() {
-        Scanner sc = new Scanner(System.in);
         UserMenu um = new UserMenu();
 
-        System.out.println("Indtast venligst din email for at logge ind.");
-        String emailInput = sc.nextLine();
+        String emailInput = sc.askQuestion("Indtast venligst din email for at logge ind.");
 
         //tjekker hvis emailen indtastet matcher en i users og kommer videre, hvis der er
         for (User s : users) {
@@ -91,14 +89,12 @@ public class UserLogin {
 
     //admin login
     public void adminLogin() {
-        Scanner sc = new Scanner(System.in);
         Admin a = new Admin("admin", "admin123");
         AdminMenu am = new AdminMenu();
         boolean loggedIn = false;
 
         while (!loggedIn) {
-            System.out.println("Indtast admin brugernavn.");
-            String usernameInput = sc.nextLine();
+            String usernameInput = sc.askQuestion("Indtast admin brugernavn.");
 
             //tjekker hvis username er admin username
             if (!a.getUsername().equals(usernameInput)) {
@@ -108,8 +104,7 @@ public class UserLogin {
                 System.out.println("Korrekt brugernavn.");
             }
 
-            System.out.println("Indtast venligst admin password.");
-            String passwordInput = sc.nextLine();
+            String passwordInput = sc.askQuestion("Indtast venligst admin password.");
 
             //tjekker om password er admin password
             if (passwordInput.equals(a.getPassword())) {
