@@ -1,16 +1,20 @@
 package FileHandler;
 
+import InvestmentClub.StockHandling;
 import Objects.Transaction;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class WriteTransactions implements CSVWriter {
     Transaction toWrite;
+    private StockHandling stockHandling;
 
-    public WriteTransactions(Transaction toWrite) {
+    public WriteTransactions(Transaction toWrite, StockHandling stockHandling) {
         this.toWrite = toWrite;
+        this.stockHandling = stockHandling;
     }
 
     @Override
@@ -26,7 +30,7 @@ public class WriteTransactions implements CSVWriter {
     public String format(Transaction toFormat) {
         String id = Integer.toString(toFormat.getTransactionID());
 //        String userID = Integer.toString(toWrite.getUserID().getUserID());
-        String date = toFormat.getDate();
+        String date = stockHandling.currentDate();
         String ticker = toFormat.getTicker();
         double price = toFormat.getPrice();
 //        String orderType =

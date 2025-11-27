@@ -1,11 +1,14 @@
 package InvestmentClub;
 
 import FileHandler.ReadStockMarket;
+
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.time.LocalDate;
 import Objects.Stock;
 
 public class StockHandling {
-
+    private LocalDate localDate;
     public ArrayList<Stock> stocksList = new ArrayList<>();
 
     public StockHandling(ArrayList<String[]> stockData) {
@@ -13,7 +16,6 @@ public class StockHandling {
     }
 
     public StockHandling() {
-
     }
 
     public void makeStocks(ArrayList<String[]> stockData, ArrayList<Stock> stocksList) {
@@ -47,5 +49,12 @@ public class StockHandling {
 
     public void buyStock() {
 
+    }
+
+    public String currentDate() {
+        localDate = LocalDate.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        return localDate.format(format);
     }
 }
