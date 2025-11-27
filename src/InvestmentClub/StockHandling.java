@@ -18,7 +18,7 @@ public class StockHandling {
 
     public void makeStocks(ArrayList<String[]> stockData, ArrayList<Stock> stocksList) {
         for (String [] strings : stockData) {
-            int price = Integer.parseInt(strings[3]);
+            double price = Double.parseDouble(strings[3]);
             String ticker = strings[0];
             String sector = strings[2];
             String name = strings[1];

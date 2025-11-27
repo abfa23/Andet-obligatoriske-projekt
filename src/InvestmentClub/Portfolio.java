@@ -12,9 +12,9 @@ public class Portfolio {
         stocks.add(stock);
     }
 
-    public void sortStocks() {
-        Collections.sort(stocks);
-    }
+//    public void sortStocks() {
+//        Collections.sort(stocks);
+//    }
 
     public void userStockIndex() {
         for (int i = 0; i < stocks.size(); i++) {
