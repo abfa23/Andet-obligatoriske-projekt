@@ -4,19 +4,21 @@ import java.time.LocalDate;
 
 public class Transactions {
     private int transactionID;
-    private String userID; //ikke endeligt
+    private int userID;
     private String date;
     private String ticker;
-    private double price;
+    private String price;
+    private String currency;
     private String orderType;
     private int boughtShares;
 
-    public Transactions(int transactionID, String userID, String date, String ticker, double price, String orderType, int boughtShares) {
+    public Transactions(int transactionID, int userID, String date, String ticker, String price, String currency, String orderType, int boughtShares) {
         this.transactionID = transactionID;
         this.userID = userID;
         this.date = date;
         this.ticker = ticker;
         this.price = price;
+        this.currency = currency;
         this.orderType = orderType;
         this.boughtShares = boughtShares;
     }
@@ -25,7 +27,7 @@ public class Transactions {
         return transactionID;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
@@ -37,8 +39,12 @@ public class Transactions {
         return ticker;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
+    }
+
+    public String getCurrency() {
+        return currency;
     }
 
     public String getOrderType() {
@@ -47,5 +53,10 @@ public class Transactions {
 
     public int getBoughtShares() {
         return boughtShares;
+    }
+
+    @Override
+    public String toString() {
+        return date + " " + ticker + " " + price + " " + currency + " " + orderType + " " + boughtShares;
     }
 }
