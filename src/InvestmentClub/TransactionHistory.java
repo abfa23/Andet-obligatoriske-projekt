@@ -1,17 +1,17 @@
 package InvestmentClub;
 
-import Objects.Transactions;
+import Objects.Transaction;
 import java.util.ArrayList;
 import static InvestmentClub.UserLogin.getCurrentUserID;
 
 public class TransactionHistory {
-    public ArrayList<Transactions> transactions = new ArrayList<>();
+    public ArrayList<Transaction> transactions = new ArrayList<>();
 
     public TransactionHistory(ArrayList<String[]> transData) {
         makeTransactionObjects(transData, transactions);
     }
 
-    public void makeTransactionObjects(ArrayList<String[]> transData, ArrayList<Transactions> transactions) {
+    public void makeTransactionObjects(ArrayList<String[]> transData, ArrayList<Transaction> transactions) {
         for (String[] strings : transData) {
             int transactionID = Integer.parseInt(strings[0]);
             int userID = Integer.parseInt(strings[1]);
@@ -22,7 +22,7 @@ public class TransactionHistory {
             String orderType = strings[6];
             int boughtShares = Integer.parseInt(strings[7]);
 
-            Transactions transaction = new Transactions(transactionID, userID, date, ticker, price, currency, orderType, boughtShares);
+            Transaction transaction = new Transaction(transactionID, userID, date, ticker, price, currency, orderType, boughtShares);
             transactions.add(transaction);
         }
 
@@ -31,7 +31,7 @@ public class TransactionHistory {
     //TODO- FIX TEST
 
     public void printTransactionHistory() {
-        for (Transactions t : transactions) {
+        for (Transaction t : transactions) {
             if (t.getUserID() == getCurrentUserID()) {
                 System.out.println(t);
             }
