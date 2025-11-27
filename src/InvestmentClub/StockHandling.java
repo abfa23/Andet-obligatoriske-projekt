@@ -18,10 +18,10 @@ public class StockHandling {
 
     public void makeStocks(ArrayList<String[]> stockData, ArrayList<Stock> stocksList) {
         for (String [] strings : stockData) {
-            int price = Integer.parseInt(strings[0]);
-            String ticker = strings[1];
+            int price = Integer.parseInt(strings[3]);
+            String ticker = strings[0];
             String sector = strings[2];
-            String name = strings[3];
+            String name = strings[1];
             String currency = strings[4];
             String rating = strings[5];
             double dividendYield = Double.parseDouble(strings[6]);
@@ -34,12 +34,11 @@ public class StockHandling {
     }
 
     public void StockMarket() {
-        ReadStockMarket market = new ReadStockMarket();
-        ArrayList<String[]> stocks = market.reader();
 
         System.out.println("Her vises aktiemarkedet: ");
-        for (Stock s : stocksList);
-        System.out.println(s);
+        for (Stock s : stocksList) {
+            System.out.println(s);
+        }
     }
 
     public void sellStock() {

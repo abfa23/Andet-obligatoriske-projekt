@@ -40,6 +40,8 @@ public class Stock implements Comparable<Stock> {
 
     public String getCurrency() { return currency;}
 
+    public String getRating() { return rating;}
+
     public double dividendYield() { return dividendYield; }
 
     public String getMarket() { return market; }
@@ -53,6 +55,6 @@ public class Stock implements Comparable<Stock> {
 
     @Override
     public String toString() {
-        return " Price: " + price + "ticker: " + ticker + "Sector: " + sector + "name: " + name + "market: " + market + "Last updated: " + lastUpdated + "Currency: " + currency + "Dividend yield" + dividendYield;
+        return " Price: " + price + "ticker: " + ticker + "Sector: " + sector + "name: " + name + "market: " + market + "Rating: " + rating + "Last updated: " + lastUpdated + "Currency: " + currency + "Dividend yield" + dividendYield;
     }
 }

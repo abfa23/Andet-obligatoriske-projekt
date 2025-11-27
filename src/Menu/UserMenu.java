@@ -1,21 +1,28 @@
 package Menu;
 
+import FileHandler.ReadStockMarket;
 import FileHandler.ReadTransactions;
 import InvestmentClub.ScannerHelper;
 import InvestmentClub.StockHandling;
 import InvestmentClub.TransactionHistory;
 
+import java.util.ArrayList;
+
 public class UserMenu {
     ScannerHelper sh = new ScannerHelper();
-    StockHandling stockHandling = new StockHandling();
+
+    ReadStockMarket readMarket = new ReadStockMarket();
+    StockHandling stockHandling = new StockHandling(readMarket.reader());
+
     ReadTransactions readTrans = new ReadTransactions();
     TransactionHistory transactionHistory = new TransactionHistory(readTrans.reader());
+
     public void UserMainMenu() {
         boolean isDone = false;
 
         while (!isDone) {
             UserInterface();
-            int userChoice = sh.askNumber(4);
+            int userChoice = sh.askNumber(5);
             switch (userChoice) {
                 case 1:
                     stockHandling.StockMarket();
