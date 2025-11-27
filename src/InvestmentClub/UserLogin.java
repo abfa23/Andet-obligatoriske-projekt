@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class UserLogin {
     //ved succesfuld login gemmer user objekter og id af personen logget ind
     private User currentUser;
-    private int currentUserID;
+    private static int currentUserID;
 
     //arraylist af users, lavet ud fra reader string arraylist i makeUsers
     public ArrayList<User> users = new ArrayList<>();
@@ -25,7 +25,7 @@ public class UserLogin {
         return currentUser;
     }
 
-    public int getCurrentUserID() {
+    public static int getCurrentUserID() {
         return currentUserID;
     }
 

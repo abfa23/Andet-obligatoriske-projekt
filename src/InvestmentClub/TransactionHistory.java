@@ -1,12 +1,11 @@
 package InvestmentClub;
-import Objects.Transactions;
-import InvestmentClub.UserLogin;
 
+import Objects.Transactions;
 import java.util.ArrayList;
+import static InvestmentClub.UserLogin.getCurrentUserID;
 
 public class TransactionHistory {
     public ArrayList<Transactions> transactions = new ArrayList<>();
-    private UserLogin ul = new UserLogin();
 
     public TransactionHistory(ArrayList<String[]> transData) {
         makeTransactionObjects(transData, transactions);
@@ -33,7 +32,7 @@ public class TransactionHistory {
 
     public void printTransactionHistory() {
         for (Transactions t : transactions) {
-            if (t.getUserID() == ul.getCurrentUserID()) {
+            if (t.getUserID() == getCurrentUserID()) {
                 System.out.println(t);
             }
             }
