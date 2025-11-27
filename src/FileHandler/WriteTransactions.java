@@ -1,15 +1,15 @@
 package FileHandler;
 
-import Objects.Transactions;
+import Objects.Transaction;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class WriteTransactions implements CSVWriter {
-    Transactions toWrite;
+    Transaction toWrite;
 
-    public WriteTransactions(Transactions toWrite) {
+    public WriteTransactions(Transaction toWrite) {
         this.toWrite = toWrite;
     }
 
@@ -23,7 +23,7 @@ public class WriteTransactions implements CSVWriter {
         }
     }
 
-    public String format(Transactions toFormat) {
+    public String format(Transaction toFormat) {
         String id = Integer.toString(toFormat.getTransactionID());
 //        String userID = Integer.toString(toWrite.getUserID().getUserID());
         String date = toFormat.getDate();
