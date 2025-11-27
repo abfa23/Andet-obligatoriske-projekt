@@ -1,6 +1,6 @@
 package Objects;
 
-public class Stocks implements Comparable<Stocks> {
+public class Stock implements Comparable<Stock> {
     private int price;
     private String name;
     private String ticker;
@@ -11,7 +11,7 @@ public class Stocks implements Comparable<Stocks> {
     private String market;
     private String lastUpdated;
 
-    public Stocks(int price, String ticker, String name, String sector, String currency, String rating, double dividendYield, String market, String lastUpdated) {
+    public Stock(int price, String ticker, String name, String sector, String currency, String rating, double dividendYield, String market, String lastUpdated) {
         this.price = price;
         this.ticker = ticker;
         this.sector = sector;
@@ -47,7 +47,7 @@ public class Stocks implements Comparable<Stocks> {
     public String getLastUpdated() { return lastUpdated; }
 
     @Override
-    public int compareTo(Stocks other) {
+    public int compareTo(Stock other) {
         return Integer.compare(this.price, other.price);
     }
 

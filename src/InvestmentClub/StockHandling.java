@@ -2,11 +2,11 @@ package InvestmentClub;
 
 import FileHandler.ReadStockMarket;
 import java.util.ArrayList;
-import Objects.Stocks;
+import Objects.Stock;
 
 public class StockHandling {
 
-    public ArrayList<Stocks> stocksList = new ArrayList<>();
+    public ArrayList<Stock> stocksList = new ArrayList<>();
 
     public StockHandling(ArrayList<String[]> stockData) {
         makeStocks(stockData, stocksList);
@@ -16,7 +16,7 @@ public class StockHandling {
 
     }
 
-    public void makeStocks(ArrayList<String[]> stockData, ArrayList<Stocks> stocksList) {
+    public void makeStocks(ArrayList<String[]> stockData, ArrayList<Stock> stocksList) {
         for (String [] strings : stockData) {
             int price = Integer.parseInt(strings[0]);
             String ticker = strings[1];
@@ -28,7 +28,7 @@ public class StockHandling {
             String market = strings[7];
             String lastUpdated = strings[8];
 
-            Stocks stocks = new Stocks(price, ticker, sector, name, currency, rating, dividendYield, market, lastUpdated);
+            Stock stocks = new Stock(price, ticker, sector, name, currency, rating, dividendYield, market, lastUpdated);
             stocksList.add(stocks);
         }
     }
@@ -38,7 +38,7 @@ public class StockHandling {
         ArrayList<String[]> stocks = market.reader();
 
         System.out.println("Her vises aktiemarkedet: ");
-        for (Stocks s : stocksList);
+        for (Stock s : stocksList);
         System.out.println(s);
     }
 
