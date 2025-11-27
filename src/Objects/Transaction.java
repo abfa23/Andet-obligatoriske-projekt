@@ -55,6 +55,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return date + " " + ticker + " " + price + " " + currency + " " + orderType + " " + boughtShares;
+        return orderType + " " + ticker + " " + price + currency + " " + boughtShares + " " + date;
     }
 }

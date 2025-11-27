@@ -20,8 +20,8 @@ public class StockHandling {
         for (String [] strings : stockData) {
             double price = Double.parseDouble(strings[3]);
             String ticker = strings[0];
-            String sector = strings[2];
-            String name = strings[1];
+            String sector = strings[1];
+            String name = strings[2];
             String currency = strings[4];
             String rating = strings[5];
             double dividendYield = Double.parseDouble(strings[6]);
