@@ -10,9 +10,10 @@ public class AdminMenu {
 
         while (!isDone) {
             adminInterface();
-            int userChoice = sh.askNumber(4);
+            int userChoice = sh.askNumber(3);
             switch (userChoice) {
                 case 1:
+
                     break;
                 case 2:
 

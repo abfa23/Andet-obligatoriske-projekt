@@ -5,12 +5,12 @@ public class Transaction {
     private int userID;
     private String date;
     private String ticker;
-    private String price;
+    private double price;
     private String currency;
     private String orderType;
     private int boughtShares;
 
-    public Transaction(int transactionID, int userID, String date, String ticker, String price, String currency, String orderType, int boughtShares) {
+    public Transaction(int transactionID, int userID, String date, String ticker, double price, String currency, String orderType, int boughtShares) {
         this.transactionID = transactionID;
         this.userID = userID;
         this.date = date;
@@ -37,7 +37,7 @@ public class Transaction {
         return ticker;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 

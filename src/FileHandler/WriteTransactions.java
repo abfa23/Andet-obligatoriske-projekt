@@ -28,7 +28,7 @@ public class WriteTransactions implements CSVWriter {
 //        String userID = Integer.toString(toWrite.getUserID().getUserID());
         String date = toFormat.getDate();
         String ticker = toFormat.getTicker();
-        String price = toFormat.getPrice();
+        double price = toFormat.getPrice();
 //        String orderType =
         String shares = Integer.toString(toFormat.getBoughtShares());
 

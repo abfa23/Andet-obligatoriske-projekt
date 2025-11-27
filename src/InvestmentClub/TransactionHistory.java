@@ -18,7 +18,7 @@ public class TransactionHistory {
             int userID = Integer.parseInt(strings[1]);
             String date = strings[2];
             String ticker = strings[3];
-            String price = strings[4];
+            double price = Double.parseDouble(strings[4]);
             String currency = strings[5];
             String orderType = strings[6];
             int boughtShares = Integer.parseInt(strings[7]);
@@ -26,7 +26,6 @@ public class TransactionHistory {
             Transaction transaction = new Transaction(transactionID, userID, date, ticker, price, currency, orderType, boughtShares);
             transactions.add(transaction);
         }
-
     }
 
     //printer transactions ud for user logget ind

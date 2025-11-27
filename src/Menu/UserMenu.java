@@ -34,6 +34,9 @@ public class UserMenu {
 
                     break;
                 case 4:
+
+                    break;
+                case 5:
                     transactionHistory.printTransactionHistory();
                     break;
             }
@@ -48,7 +51,7 @@ public class UserMenu {
                 │ Tryk  1 for at se aktiemarked og aktuel kurs.    │
                 │ Tryk  2 for at registrere køb af aktier.         │
                 │ Tryk  3 for at registrere salg af aktier         │
-                │ Tryk  4 for at se portofølje.                    │
+                │ Tryk  4 for at se portfolio.                     │
                 │ Tryk  5 for at se transaktionshistorik.          │
                 └──────────────────────────────────────────────────┘
                 """);
