@@ -11,6 +11,7 @@ public class TransactionHistory {
         makeTransactionObjects(transData, transactions);
     }
 
+    //laver transactions arraylisten med transaction objekter ud fra reader data
     public void makeTransactionObjects(ArrayList<String[]> transData, ArrayList<Transaction> transactions) {
         for (String[] strings : transData) {
             int transactionID = Integer.parseInt(strings[0]);
@@ -28,8 +29,7 @@ public class TransactionHistory {
 
     }
 
-    //TODO- FIX TEST
-
+    //printer transactions ud for user logget ind
     public void printTransactionHistory() {
         for (Transaction t : transactions) {
             if (t.getUserID() == getCurrentUserID()) {
