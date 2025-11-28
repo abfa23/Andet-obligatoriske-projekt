@@ -10,12 +10,19 @@ import java.util.ArrayList;
 public class PortfolioHandling {
     public ArrayList<Portfolio> portfolioList = new ArrayList<>();
 
-    ArrayList<User> users;
-    ArrayList<Transaction> transactions;
-    ArrayList<Stock> stocksList;
+    private ArrayList<User> users;
+    private ArrayList<Transaction> transactions;
+    private ArrayList<Stock> stocksList;
+
+
+    public PortfolioHandling(ArrayList<User> users, ArrayList<Transaction> transactions, ArrayList<Stock> stocksList) {
+        this.users = users;
+        this.transactions = transactions;
+        this.stocksList = stocksList;
+    }
+
 
     public void calculatePortfolio() {
-        PortfolioHandling ph = new PortfolioHandling();
         for (User u : users) {
             int userID = u.getUserID();
             double calcBalance = u.getInitialCash();
@@ -23,18 +30,13 @@ public class PortfolioHandling {
             for (Transaction t : transactions) {
                 if (t.getUserID() == userID) {
                     if (t.getOrderType().equalsIgnoreCase("buy")) {
-                        double actualBalance = (calcBalance - (t.getPrice() * t.getBoughtShares()));
-                        Portfolio p = new Portfolio(userID, actualBalance);
-                        portfolioList.add(p);
-                        System.out.println(p);
-                    } else {
-                        double actualBalance = (calcBalance + (t.getPrice() * t.getBoughtShares()));
-                        Portfolio p = new Portfolio(userID, actualBalance);
-                        portfolioList.add(p);
-                        System.out.println(p);
+                        calcBalance = calcBalance - (t.getPrice() * t.getBoughtShares());
+                    } else if (t.getOrderType().equalsIgnoreCase("sell")) {
+                        calcBalance = (calcBalance + (t.getPrice() * t.getBoughtShares()));
                     }
                 }
             }
+
         }
     }
 }
