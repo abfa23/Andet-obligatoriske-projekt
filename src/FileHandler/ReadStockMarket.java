@@ -19,9 +19,9 @@ public class ReadStockMarket implements CSVReader {
             while((line = bufferedReader.readLine()) != null){
                 formatedData.add(format(line));
             }
-        }catch ( FileNotFoundException e){
+        }catch (FileNotFoundException e){
             System.out.println("stockMarket.csv does not exist.");
-        }catch ( IOException e){
+        }catch (IOException e){
             System.out.println("ERROR: IOException");
         }
 
