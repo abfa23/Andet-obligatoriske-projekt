@@ -8,8 +8,8 @@ public class InputHandling {
 
     //tjekker om User har nok penge.
     public static boolean validateEnoughCash(User user, double amount) {
-        double curretCash = user.getInitialCash();
-        return curretCash >= amount;
+        double currentCash = user.getInitialCash();
+        return currentCash >= amount;
     }
 
     //tjekker om Int nummer er brugt.
