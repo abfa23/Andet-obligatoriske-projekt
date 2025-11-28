@@ -36,7 +36,8 @@ public class PortfolioHandling {
                     }
                 }
             }
-
+            Portfolio portfolio = new Portfolio(userID, calcBalance);
+            portfolioList.add(portfolio);
         }
     }
 }
