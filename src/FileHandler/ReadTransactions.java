@@ -31,5 +31,4 @@ public class ReadTransactions implements CSVReader {
     public String[] format (String s) {
         return s.split(";");
     }
-
 }

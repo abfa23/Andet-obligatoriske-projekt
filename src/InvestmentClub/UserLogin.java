@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class UserLogin {
     //ved succesfuld login gemmer user objekter og id af personen logget ind
     private User currentUser;
-    private int currentUserID;
+    private static int currentUserID;
 
     //arraylist af users, lavet ud fra reader string arraylist i makeUsers
     public ArrayList<User> users = new ArrayList<>();
@@ -25,7 +25,7 @@ public class UserLogin {
         return currentUser;
     }
 
-    public int getCurrentUserID() {
+    public static int getCurrentUserID() {
         return currentUserID;
     }
 
@@ -48,7 +48,13 @@ public class UserLogin {
     //valg af slags login
     public void login() {
 
-        System.out.println("Skriv 1 for at logge ind som bruger eller skriv 2 for at logge ind som admin.");
+        System.out.println("""
+                           Velkommen til Investeringsklubben!
+                ┌──────────────────────────────────────────────────┐
+                │ Tryk  1 for at logge ind som bruger.             │
+                │ Tryk  2 for at logge ind som admin.              │
+                └──────────────────────────────────────────────────┘
+                """);
         int choiceInput = sc.askNumber(2);
 
         //viderestiller baseret på input til login menu.
@@ -70,12 +76,12 @@ public class UserLogin {
     public void userLogin() {
         UserMenu um = new UserMenu();
 
-        String emailInput = sc.askQuestion("Indtast venligst din email for at logge ind.");
+        String emailInput = sc.askQuestion("Indtast venligst din email for at logge ind");
 
         //tjekker hvis emailen indtastet matcher en i users og kommer videre, hvis der er
         for (User s : users) {
             if (s.getEmail().equalsIgnoreCase(emailInput)) {
-                System.out.println("Logged ind som bruger.");
+                System.out.println("Logged ind som bruger");
                 this.currentUser = s;
                 this.currentUserID = s.getUserID();
                 um.UserMainMenu();
@@ -94,22 +100,22 @@ public class UserLogin {
         boolean loggedIn = false;
 
         while (!loggedIn) {
-            String usernameInput = sc.askQuestion("Indtast admin brugernavn.");
+            String usernameInput = sc.askQuestion("Indtast admin brugernavn");
 
             //tjekker hvis username er admin username
             if (!a.getUsername().equals(usernameInput)) {
                 System.out.println("Brugernavnet matcher ikke databasen. Forsøg igen!");
                 continue;
             } else {
-                System.out.println("Korrekt brugernavn.");
+                System.out.println("Korrekt brugernavn");
             }
 
-            String passwordInput = sc.askQuestion("Indtast venligst admin password.");
+            String passwordInput = sc.askQuestion("Indtast venligst admin password");
 
             //tjekker om password er admin password
             if (passwordInput.equals(a.getPassword())) {
                 loggedIn = true;
-                System.out.println("Logged ind som admin.");
+                System.out.println("Logged ind som admin");
             } else {
                 System.out.println("Password matcher ikke databasen. Forsøg igen!");
             }

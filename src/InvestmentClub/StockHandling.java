@@ -1,16 +1,60 @@
 package InvestmentClub;
 
 import FileHandler.ReadStockMarket;
+
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import Objects.Stock;
 
 public class StockHandling {
+    private LocalDate localDate;
+    public ArrayList<Stock> stocksList = new ArrayList<>();
+
+    public StockHandling(ArrayList<String[]> stockData) {
+        makeStocks(stockData, stocksList);
+    }
+
+    public StockHandling() {
+    }
+
+    public void makeStocks(ArrayList<String[]> stockData, ArrayList<Stock> stocksList) {
+        for (String [] strings : stockData) {
+            double price = Double.parseDouble(strings[3]);
+            String ticker = strings[0];
+            String sector = strings[1];
+            String name = strings[2];
+            String currency = strings[4];
+            String rating = strings[5];
+            double dividendYield = Double.parseDouble(strings[6]);
+            String market = strings[7];
+            String lastUpdated = strings[8];
+
+            Stock stocks = new Stock(price, ticker, sector, name, currency, rating, dividendYield, market, lastUpdated);
+            stocksList.add(stocks);
+        }
+    }
 
     public void StockMarket() {
-        ReadStockMarket market = new ReadStockMarket();
-        ArrayList<String[]> stocks = market.reader();
 
         System.out.println("Her vises aktiemarkedet: ");
-        for (String [] stock : stocks);
-        System.out.println(stocks);
+        for (Stock s : stocksList) {
+            System.out.println(s);
+        }
+    }
+
+    public void sellStock() {
+
+    }
+
+    public void buyStock() {
+
+    }
+
+    public String currentDate() {
+        localDate = LocalDate.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        return localDate.format(format);
     }
 }

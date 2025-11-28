@@ -10,9 +10,10 @@ public class AdminMenu {
 
         while (!isDone) {
             adminInterface();
-            int userChoice = sh.askNumber(4);
+            int userChoice = sh.askNumber(3);
             switch (userChoice) {
                 case 1:
+
                     break;
                 case 2:
 
@@ -29,7 +30,7 @@ public class AdminMenu {
         System.out.println("""
                            Velkommen til admin menuen!
                 ┌────────────────────────────────────────────────────────────────┐
-                │ Tryk  1 for at se en oversigt over brugernes portoføljeværdier.│
+                │ Tryk  1 for at se en oversigt over brugernes porteføljeværdier.│
                 │ Tryk  2 for at få en rangliste over brugerne.                  │
                 │ Tryk  3 for at få vist en fordelinger på aktier og sektorer.   │
                 └────────────────────────────────────────────────────────────────┘
