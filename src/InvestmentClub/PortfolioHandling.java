@@ -72,9 +72,9 @@ public class PortfolioHandling {
         }
 
 
-        for (HashMap.Entry<String, Integer> entry : holdings.entrySet()) {
-            String ticker = entry.getKey();
-            int shares = entry.getValue();
+        for (HashMap.Entry<String, Integer> e : holdings.entrySet()) {
+            String ticker = e.getKey();
+            int shares = e.getValue();
 
             System.out.println("Aktie: " + ticker + " Antal: " + shares);
         }
