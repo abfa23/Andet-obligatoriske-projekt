@@ -79,4 +79,14 @@ public class PortfolioHandling {
             System.out.println("Aktie: " + ticker + " Antal: " + shares);
         }
     }
+
+    //hjælpe metode til at finde aktie der passer med ticker for at kunne bruge getters til aktien til display metoden.
+    public Stock findStock(String ticker) {
+        for (Stock s : stocksList) {
+            if (s.getTicker().equalsIgnoreCase(ticker)) {
+                return s;
+            }
+        }
+        return null;
+    }
 }
