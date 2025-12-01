@@ -14,7 +14,6 @@ public class PortfolioHandling {
     private ArrayList<Transaction> transactions;
     private ArrayList<Stock> stocksList;
 
-
     public PortfolioHandling(ArrayList<User> users, ArrayList<Transaction> transactions, ArrayList<Stock> stocksList) {
         this.users = users;
         this.transactions = transactions;
@@ -27,17 +26,26 @@ public class PortfolioHandling {
             int userID = u.getUserID();
             double calcBalance = u.getInitialCash();
 
+            Portfolio p = new Portfolio(userID, 0);
+
             for (Transaction t : transactions) {
                 if (t.getUserID() == userID) {
                     if (t.getOrderType().equalsIgnoreCase("buy")) {
                         calcBalance = calcBalance - (t.getPrice() * t.getBoughtShares());
+                        p.addHolding(t.getTicker(), t.getBoughtShares());
+
                     } else if (t.getOrderType().equalsIgnoreCase("sell")) {
-                        calcBalance = (calcBalance + (t.getPrice() * t.getBoughtShares()));
+                        calcBalance = calcBalance + (t.getPrice() * t.getBoughtShares());
+                        p.removeHolding(t.getTicker(), t.getBoughtShares());
                     }
                 }
             }
-            Portfolio portfolio = new Portfolio(userID, calcBalance);
-            portfolioList.add(portfolio);
+            p.setBalance(calcBalance);
+            portfolioList.add(p);
         }
+    }
+
+    public void displayPortfolio(int userID) {
+
     }
 }

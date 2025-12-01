@@ -42,7 +42,7 @@ public class Stock /*implements Comparable<Stock>*/ {
 
     public String getRating() { return rating;}
 
-    public double dividendYield() { return dividendYield; }
+    public double getDividendYield() { return dividendYield; }
 
     public String getMarket() { return market; }
 
