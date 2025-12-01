@@ -6,6 +6,7 @@ import Objects.Transaction;
 import Objects.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PortfolioHandling {
     public ArrayList<Portfolio> portfolioList = new ArrayList<>();
@@ -46,6 +47,36 @@ public class PortfolioHandling {
     }
 
     public void displayPortfolio(int userID) {
+        Portfolio userPortfolio = null;
 
+        for (Portfolio p : portfolioList) {
+            if (p.getUserID() == userID) {
+                userPortfolio = p;
+            }
+        }
+
+        // TODO Lav custom exception til her! Nedenunder. Der er flere muligheder!
+
+        if (userPortfolio == null) {
+            System.out.println("Ingen portfolio til brugeren");
+            return;
+        }
+
+        System.out.println("Dette er dit portfolio: ");
+        System.out.println("Dette er dit mønt!: " + userPortfolio.getBalance());
+
+        HashMap<String, Integer> holdings = userPortfolio.getHoldings();
+        if (holdings.isEmpty()) {
+            System.out.println("Fejl.");
+            return;
+        }
+
+
+        for (HashMap.Entry<String, Integer> entry : holdings.entrySet()) {
+            String ticker = entry.getKey();
+            int shares = entry.getValue();
+
+            System.out.println("Aktie: " + ticker + " Antal: " + shares);
+        }
     }
 }

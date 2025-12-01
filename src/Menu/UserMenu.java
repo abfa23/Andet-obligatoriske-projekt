@@ -2,11 +2,8 @@ package Menu;
 
 import FileHandler.ReadStockMarket;
 import FileHandler.ReadTransactions;
-import InvestmentClub.ScannerHelper;
-import InvestmentClub.StockHandling;
-import InvestmentClub.TransactionHistory;
-
-import java.util.ArrayList;
+import FileHandler.ReadUsers;
+import InvestmentClub.*;
 
 public class UserMenu {
     ScannerHelper sh = new ScannerHelper();
@@ -16,6 +13,17 @@ public class UserMenu {
 
     ReadTransactions readTrans = new ReadTransactions();
     TransactionHistory transactionHistory = new TransactionHistory(readTrans.reader());
+
+    ReadUsers ru = new ReadUsers();
+    UserLogin userLogin = new UserLogin(ru.reader());
+
+    PortfolioHandling ph;
+
+    public UserMenu() {
+        ph = new PortfolioHandling(userLogin.users,
+                transactionHistory.transactions, stockHandling.stocksList);
+        ph.calculatePortfolio();
+    }
 
     public void UserMainMenu() {
         boolean isDone = false;
@@ -34,7 +42,7 @@ public class UserMenu {
 
                     break;
                 case 4:
-
+                    ph.displayPortfolio(UserLogin.getCurrentUserID());
                     break;
                 case 5:
                     transactionHistory.printTransactionHistory();
