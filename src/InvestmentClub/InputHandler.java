@@ -1,12 +1,13 @@
 package InvestmentClub;
 
+import Objects.Portfolio;
 import Objects.User;
 
 public class InputHandler {
 
     //tjekker om User har nok penge.
-    public static boolean validateEnoughCash(User user, double amount) {
-        double currentCash = user.getInitialCash();
+    public static boolean validateEnoughCash(Portfolio p, double amount) {
+        double currentCash = p.getBalance();
         return currentCash >= amount;
     }
 

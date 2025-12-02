@@ -14,7 +14,7 @@ public class UserLogin {
     //arraylist af users, lavet ud fra reader string arraylist i makeUsers
     public ArrayList<User> users = new ArrayList<>();
 
-    private ScannerHelper sc = new ScannerHelper();
+    public static ScannerHelper sc = new ScannerHelper();
 
     //constructor der modtager reader string arraylist
     public UserLogin(ArrayList<String[]> data) {

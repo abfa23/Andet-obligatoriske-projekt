@@ -1,7 +1,10 @@
 package InvestmentClub;
 
+import Objects.Stock;
 import Objects.Transaction;
+
 import java.util.ArrayList;
+
 import static InvestmentClub.UserLogin.getCurrentUserID;
 
 public class TransactionHistory {
@@ -34,7 +37,7 @@ public class TransactionHistory {
             if (t.getUserID() == getCurrentUserID()) {
                 System.out.println(t);
             }
-            }
         }
     }
+}
 
