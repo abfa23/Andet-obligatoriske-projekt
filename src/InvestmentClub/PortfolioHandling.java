@@ -76,15 +76,16 @@ public class PortfolioHandling {
         ArrayList<Portfolio> sortedPortfolios = new ArrayList<>(portfolioList);
         Collections.sort(sortedPortfolios);
 
-        System.out.println("\nRANGLISTE - SAMLET FORMUE\n");
-        System.out.println("Rang" + " " + "Navn" + "\t" + "Formue");
-        System.out.println(sortedPortfolios);
+        System.out.println("┌───────────────────────────────────┐\n" +
+                "│     RANGLISTE - SAMLET FORMUE     │\n" +
+                "└───────────────────────────────────┘");
+        System.out.printf("%-6s %-21s%-1s%n", "Rang", "Navn", "Formue");
 
         int rank = 1;
         for (Portfolio p : sortedPortfolios) {
             User u = findUser(p.getUserID());
 
-            System.out.println((rank++) + "\t" + (u.getFullName()) + " " + (p.getTotalValue()));
+            System.out.printf(Locale.GERMANY, "%-6d %-20s %,-10.2f%s%n", rank++, u.getFullName(), (p.getTotalValue()), "DKK");
         }
 
     }
