@@ -36,7 +36,7 @@ public class AdminMenu {
                     ph.displayPortfolioAdmin();
                     break;
                 case 2:
-
+                    ph.displayRanking();
                     break;
                 case 3:
 
@@ -53,6 +53,7 @@ public class AdminMenu {
                 │ Tryk  1 for at se en oversigt over brugernes porteføljeværdier.│
                 │ Tryk  2 for at få en rangliste over brugerne.                  │
                 │ Tryk  3 for at få vist en fordelinger på aktier og sektorer.   │
+                │ Tryk  4 for at logge ud.                                       │
                 └────────────────────────────────────────────────────────────────┘
                 """);
     }

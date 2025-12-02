@@ -1,5 +1,7 @@
 package Objects;
 
+import InvestmentClub.StockHandling;
+
 public class Stock /*implements Comparable<Stock>*/ {
     private double price;
     private String name;
@@ -55,6 +57,6 @@ public class Stock /*implements Comparable<Stock>*/ {
 
     @Override
     public String toString() {
-        return " Aktie: " + ticker +  " | Pris: " + price + currency + " | Sektor: " + sector + " | Navn: " + name + " | Marked: " + market + " | Aktie-rating: " + rating;
+        return " Price: " + price + "ticker: " + ticker + "Sector: " + sector + "name: " + name + "market: " + market + "Rating: " + rating + "Last updated: " + lastUpdated + "Currency: " + currency + "Dividend yield" + dividendYield;
     }
 }

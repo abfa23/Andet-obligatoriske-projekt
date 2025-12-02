@@ -6,6 +6,7 @@ import Objects.Transaction;
 import Objects.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class PortfolioHandling {
@@ -44,6 +45,48 @@ public class PortfolioHandling {
             p.setBalance(calcBalance);
             portfolioList.add(p);
         }
+        calculateTotalValue();
+    }
+
+    public void calculateTotalValue() {
+        for (Portfolio p : portfolioList) {
+            double totalValue = p.getBalance();
+
+            for (HashMap.Entry<String, Integer> e : p.getHoldings().entrySet()) {
+                String ticker = e.getKey();
+                int shares = e.getValue();
+
+                Stock s = findStock(ticker);
+
+                double stockPrice = s.getPrice();
+                double dividendYield = s.getDividendYield();
+
+                double stockValue = stockPrice * shares;
+
+                double annualDividendYield = (stockValue * dividendYield) / 100;
+
+                totalValue += stockValue + annualDividendYield;
+            }
+
+            p.setTotalValue(totalValue);
+        }
+    }
+
+    public void displayRanking() {
+        ArrayList<Portfolio> sortedPortfolios = new ArrayList<>(portfolioList);
+        Collections.sort(sortedPortfolios);
+
+        System.out.println("\nRANGLISTE - SAMLET FORMUE\n");
+        System.out.println("Rang" + " " + "Navn" + "\t" + "Formue");
+        System.out.println(sortedPortfolios);
+
+        int rank = 1;
+        for (Portfolio p : sortedPortfolios) {
+            User u = findUser(p.getUserID());
+
+            System.out.println((rank++) + "\t" + (u.getFullName()) + " " + (p.getTotalValue()));
+        }
+
     }
 
     public void displayPortfolio(int userID) {
@@ -55,11 +98,9 @@ public class PortfolioHandling {
             }
         }
 
-        // TODO Lav custom exception til her! Nedenunder. Der er flere muligheder!
-
         if (userPortfolio == null) {
-            System.out.println("Ingen portfolio til brugeren fundet");
-            return;
+            throw new ExceptionHandler("userPortfolio == null, fejl i programmet. \n" +
+                    "linje 60 - PortfolioHandling");
         }
 
         System.out.println("Dette er dit portfolio: ");
@@ -80,13 +121,18 @@ public class PortfolioHandling {
     }
 
     public void displayPortfolioAdmin() {
+        System.out.println(
+                "┌───────────────────────────────────┐\n" +
+                "│ Her er alle brugernes porteføljer!│\n" +
+                "└───────────────────────────────────┘");
+
         for (Portfolio p : portfolioList) {
-            System.out.println("UserID: " + p.getUserID());
+            System.out.print("BrugerID: " + p.getUserID() + " | ");
 
             User u = findUser(p.getUserID());
 
-            System.out.println("Name: " + u.getFullName());
-            System.out.println("Balance: " + p.getBalance());
+            System.out.print("Fuldt navn: " + u.getFullName() + " | ");
+            System.out.print("Kontantbeholdning: " + p.getBalance());
 
             HashMap<String, Integer> holdings = p.getHoldings();
             if (holdings.isEmpty()) {
@@ -94,17 +140,16 @@ public class PortfolioHandling {
                 return;
             }
 
-            System.out.println("Brugerens aktier: ");
+            System.out.println(" ");
             for (HashMap.Entry<String, Integer> e : holdings.entrySet()) {
                 String ticker = e.getKey();
                 int shares = e.getValue();
 
-                System.out.println("Aktie: " + ticker + " Antal: " + shares);
+                System.out.print("Aktie: " + ticker + " Antal: " + shares + " | ");
             }
-
+            System.out.println("\n ");
         }
     }
-
 
     //hjælpe metode til at finde aktie der passer med ticker for at kunne bruge getters til aktien til display metoden.
     public Stock findStock(String ticker) {
