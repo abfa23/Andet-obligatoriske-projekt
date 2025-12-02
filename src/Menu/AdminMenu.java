@@ -1,10 +1,30 @@
 package Menu;
 
-import InvestmentClub.ScannerHelper;
-import InvestmentClub.StockHandling;
+import FileHandler.ReadStockMarket;
+import FileHandler.ReadTransactions;
+import FileHandler.ReadUsers;
+import InvestmentClub.*;
 
 public class AdminMenu {
     ScannerHelper sh = new ScannerHelper();
+
+    ReadStockMarket readMarket = new ReadStockMarket();
+    StockHandling stockHandling = new StockHandling(readMarket.reader());
+
+    ReadTransactions readTrans = new ReadTransactions();
+    TransactionHistory transactionHistory = new TransactionHistory(readTrans.reader());
+
+    ReadUsers ru = new ReadUsers();
+    UserLogin userLogin = new UserLogin(ru.reader());
+
+    PortfolioHandling ph;
+
+    public AdminMenu() {
+        ph = new PortfolioHandling(userLogin.users,
+                transactionHistory.transactions, stockHandling.stocksList);
+        ph.calculatePortfolio();
+    }
+
     public void MainMenu() {
         boolean isDone = false;
 
@@ -13,7 +33,7 @@ public class AdminMenu {
             int userChoice = sh.askNumber(3);
             switch (userChoice) {
                 case 1:
-
+                    ph.displayPortfolioAdmin();
                     break;
                 case 2:
 
@@ -37,3 +57,4 @@ public class AdminMenu {
                 """);
     }
 }
+

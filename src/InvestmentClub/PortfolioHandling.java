@@ -58,7 +58,7 @@ public class PortfolioHandling {
         // TODO Lav custom exception til her! Nedenunder. Der er flere muligheder!
 
         if (userPortfolio == null) {
-            System.out.println("Ingen portfolio til brugeren");
+            System.out.println("Ingen portfolio til brugeren fundet");
             return;
         }
 
@@ -67,10 +67,9 @@ public class PortfolioHandling {
 
         HashMap<String, Integer> holdings = userPortfolio.getHoldings();
         if (holdings.isEmpty()) {
-            System.out.println("Fejl.");
+            System.out.println("Du har ingen aktier!");
             return;
         }
-
 
         for (HashMap.Entry<String, Integer> e : holdings.entrySet()) {
             String ticker = e.getKey();
@@ -80,11 +79,48 @@ public class PortfolioHandling {
         }
     }
 
+    public void displayPortfolioAdmin() {
+        for (Portfolio p : portfolioList) {
+            System.out.println("UserID: " + p.getUserID());
+
+            User u = findUser(p.getUserID());
+
+            System.out.println("Name: " + u.getFullName());
+            System.out.println("Balance: " + p.getBalance());
+
+            HashMap<String, Integer> holdings = p.getHoldings();
+            if (holdings.isEmpty()) {
+                System.out.println("Bruger har ingen aktier!");
+                return;
+            }
+
+            System.out.println("Brugerens aktier: ");
+            for (HashMap.Entry<String, Integer> e : holdings.entrySet()) {
+                String ticker = e.getKey();
+                int shares = e.getValue();
+
+                System.out.println("Aktie: " + ticker + " Antal: " + shares);
+            }
+
+        }
+    }
+
+
     //hjælpe metode til at finde aktie der passer med ticker for at kunne bruge getters til aktien til display metoden.
     public Stock findStock(String ticker) {
         for (Stock s : stocksList) {
             if (s.getTicker().equalsIgnoreCase(ticker)) {
                 return s;
+            }
+        }
+        return null;
+    }
+
+    //hjælpe metode til at finde user der passer med user bruges til displayadmin metoden.
+    public User findUser(int userID) {
+        for (User u : users) {
+            if (u.getUserID() == userID) {
+                return u;
             }
         }
         return null;
