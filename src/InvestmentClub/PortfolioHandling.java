@@ -58,8 +58,13 @@ public class PortfolioHandling {
         // TODO Lav custom exception til her! Nedenunder. Der er flere muligheder!
 
         if (userPortfolio == null) {
-            System.out.println("Ingen portfolio til brugeren");
-            return;
+                try {
+                    throw new ExceptionHandler("could not find ¨Portofolio¨");
+                } catch (ExceptionHandler i) {
+                    System.out.println("caught");
+                    System.out.println(i.getMessage());
+                }
+
         }
 
         System.out.println("Dette er dit portfolio: ");
