@@ -8,6 +8,7 @@ import Objects.User;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class PortfolioHandling {
     public ArrayList<Portfolio> portfolioList = new ArrayList<>();
@@ -21,7 +22,6 @@ public class PortfolioHandling {
         this.transactions = transactions;
         this.stocksList = stocksList;
     }
-
 
     public void calculatePortfolio() {
         for (User u : users) {
@@ -103,8 +103,11 @@ public class PortfolioHandling {
                     "linje 60 - PortfolioHandling");
         }
 
-        System.out.println("Dette er dit portfolio: ");
-        System.out.println("Dette er dit mønt!: " + userPortfolio.getBalance());
+        System.out.println("┌─────────────────────────┐\n" +
+                           "│ Dette er dit portefølje!│\n" +
+                           "└─────────────────────────┘");
+        System.out.printf(Locale.GERMANY, "Kontantbeholdning: %,.2f %s%n", userPortfolio.getBalance(), "DKK");
+        System.out.printf(Locale.GERMANY, "Formue: %,.2f %s%n", userPortfolio.getTotalValue(), "DKK");
 
         HashMap<String, Integer> holdings = userPortfolio.getHoldings();
         if (holdings.isEmpty()) {
@@ -116,7 +119,11 @@ public class PortfolioHandling {
             String ticker = e.getKey();
             int shares = e.getValue();
 
-            System.out.println("Aktie: " + ticker + " Antal: " + shares);
+            Stock s = findStock(ticker);
+            double stockValueTotal = s.getPrice() * shares;
+
+            System.out.println("Aktie: " + ticker + " | Antal: " + shares + " | Aktieværdi i alt: " +
+                    stockValueTotal + s.getCurrency() + " | Årlig stigning: " + s.getDividendYield() + "% ");
         }
     }
 

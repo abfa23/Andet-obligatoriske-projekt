@@ -57,6 +57,6 @@ public class Stock /*implements Comparable<Stock>*/ {
 
     @Override
     public String toString() {
-        return " Price: " + price + "ticker: " + ticker + "Sector: " + sector + "name: " + name + "market: " + market + "Rating: " + rating + "Last updated: " + lastUpdated + "Currency: " + currency + "Dividend yield" + dividendYield;
+        return "Ticker: " + ticker + " | Aktie: " + name +  " | Pris: " + price + " " + currency + " | Sektorer: " + sector + " | Marked: " + market + " | Aktierating: " + rating;
     }
 }
