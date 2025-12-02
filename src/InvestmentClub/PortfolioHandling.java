@@ -6,6 +6,7 @@ import Objects.Transaction;
 import Objects.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class PortfolioHandling {
@@ -44,6 +45,48 @@ public class PortfolioHandling {
             p.setBalance(calcBalance);
             portfolioList.add(p);
         }
+        calculateTotalValue();
+    }
+
+    public void calculateTotalValue() {
+        for (Portfolio p : portfolioList) {
+            double totalValue = p.getBalance();
+
+            for (HashMap.Entry<String, Integer> e : p.getHoldings().entrySet()) {
+                String ticker = e.getKey();
+                int shares = e.getValue();
+
+                Stock s = findStock(ticker);
+
+                double stockPrice = s.getPrice();
+                double dividendYield = s.getDividendYield();
+
+                double stockValue = stockPrice * shares;
+
+                double annualDividendYield = (stockValue * dividendYield) / 100;
+
+                totalValue += stockValue + annualDividendYield;
+            }
+
+            p.setTotalValue(totalValue);
+        }
+    }
+
+    public void displayRanking() {
+        ArrayList<Portfolio> sortedPortfolios = new ArrayList<>(portfolioList);
+        Collections.sort(sortedPortfolios);
+
+        System.out.println("\nRANGLISTE - SAMLET FORMUE\n");
+        System.out.println("Rang" + " " + "Navn" + "\t" + "Formue");
+        System.out.println(sortedPortfolios);
+
+        int rank = 1;
+        for (Portfolio p : sortedPortfolios) {
+            User u = findUser(p.getUserID());
+
+            System.out.println((rank++) + "\t" + (u.getFullName()) + " " + (p.getTotalValue()));
+        }
+
     }
 
     public void displayPortfolio(int userID) {

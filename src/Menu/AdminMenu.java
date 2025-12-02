@@ -36,7 +36,7 @@ public class AdminMenu {
                     ph.displayPortfolioAdmin();
                     break;
                 case 2:
-
+                    ph.displayRanking();
                     break;
                 case 3:
 

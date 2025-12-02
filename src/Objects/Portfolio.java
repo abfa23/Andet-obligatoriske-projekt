@@ -2,15 +2,17 @@ package Objects;
 
 import java.util.HashMap;
 
-public class Portfolio {
+public class Portfolio implements Comparable<Portfolio> {
     private int userID;
     private double balance;
     private HashMap<String, Integer> holdings;
+    private double totalValue;
 
     public Portfolio(int userID, double balance) {
         this.userID = userID;
         this.balance = balance;
         this.holdings = new HashMap<>();
+        this.totalValue = 0.0;
     }
 
     public int getUserID() {
@@ -24,8 +26,16 @@ public class Portfolio {
         return holdings;
     }
 
+    public double getTotalValue() {
+        return totalValue;
+    }
+
     public void setBalance(double input) {
         this.balance = input;
+    }
+
+    public void setTotalValue(double totalValue) {
+        this.totalValue = totalValue;
     }
 
     public void addHolding(String ticker, int boughtShares) {
@@ -39,6 +49,11 @@ public class Portfolio {
             } else {
             holdings.put(ticker, currentHolding - boughtShares);
         }
+    }
+
+    @Override
+    public int compareTo(Portfolio other) {
+        return Double.compare(other.totalValue, this.totalValue);
     }
 
     @Override
