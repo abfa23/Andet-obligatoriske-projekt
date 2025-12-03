@@ -42,7 +42,7 @@ public class StockHandling {
             String market = strings[7];
             String lastUpdated = strings[8];
 
-            Stock stocks = new Stock(price, ticker, sector, name, currency, rating, dividendYield, market, lastUpdated);
+            Stock stocks = new Stock(price, ticker, name, sector, currency, rating, dividendYield, market, lastUpdated);
             stocksList.add(stocks);
         }
     }

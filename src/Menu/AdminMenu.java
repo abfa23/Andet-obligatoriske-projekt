@@ -39,7 +39,7 @@ public class AdminMenu {
                     ph.displayRanking();
                     break;
                 case 3:
-
+                    ph.showStockStatistics();
                     break;
                 case 4:
                     userLogin.logout();

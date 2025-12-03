@@ -5,10 +5,7 @@ import Objects.Stock;
 import Objects.Transaction;
 import Objects.User;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Locale;
+import java.util.*;
 
 public class PortfolioHandling {
     public ArrayList<Portfolio> portfolioList = new ArrayList<>();
@@ -157,6 +154,48 @@ public class PortfolioHandling {
             }
             System.out.println("\n ");
         }
+    }
+
+    public void showStockStatistics() {
+        HashMap<String, Integer> stock = new HashMap<>();
+        HashMap<String, Integer> sector = new HashMap<>();
+
+        System.out.println("┌───────────────────────────────────────┐");
+        System.out.println("│  AKTIESTATISTIK - sektorer og aktier  │");
+        System.out.println("└───────────────────────────────────────┘");
+
+        for (Portfolio p : portfolioList) {
+            HashMap<String, Integer> holdings = p.getHoldings();
+            if (holdings.isEmpty()) {
+                continue;
+            }
+
+            for (Map.Entry<String, Integer> e : holdings.entrySet()) {
+                String ticker = e.getKey();
+                int shares = e.getValue();
+
+                //aktie fordeling
+                stock.put(ticker, (stock.getOrDefault(ticker, 0) + shares));
+
+                //sektorer fordeling
+                Stock s = findStock(ticker);
+                String stockSector = s.getSector();
+                sector.put(stockSector, (sector.getOrDefault(stockSector, 0) + shares));
+            }
+        }
+
+        System.out.println("Sektorer statistik");
+        for (HashMap.Entry<String, Integer> e : sector.entrySet()) {
+            System.out.println("Sektorer navn: " + e.getKey() + " | Antal aktier købt i sektor: " + e.getValue());
+        }
+
+        System.out.println(" ");
+
+        System.out.println("Aktie statistik");
+        for (HashMap.Entry<String, Integer> e : stock.entrySet()) {
+            System.out.println("Ticker aktie: " + e.getKey() + " | Antal aktier ejet af brugere: " + e.getValue());
+        }
+
     }
 
     //hjælpe metode til at finde aktie der passer med ticker for at kunne bruge getters til aktien til display metoden.
