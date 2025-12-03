@@ -93,6 +93,7 @@ public class PortfolioHandling {
         for (Portfolio p : portfolioList) {
             if (p.getUserID() == userID) {
                 userPortfolio = p;
+                break;
             }
         }
 
@@ -101,58 +102,82 @@ public class PortfolioHandling {
                     "linje 60 - PortfolioHandling");
         }
 
-        System.out.println("┌─────────────────────────┐\n" +
-                           "│ Dette er dit portefølje!│\n" +
-                           "└─────────────────────────┘");
-        System.out.printf(Locale.GERMANY, "Kontantbeholdning: %,.2f %s%n", userPortfolio.getBalance(), "DKK");
-        System.out.printf(Locale.GERMANY, "Formue: %,.2f %s%n", userPortfolio.getTotalValue(), "DKK");
+        System.out.println("""
+            ═════════════════════════════════════════════════════════════════════════════════
+                                          DETTE ER DIT PORTEFØLJE\s
+            ═════════════════════════════════════════════════════════════════════════════════""");
+
+        System.out.printf(Locale.GERMANY, "│ Kontantbeholdning: %,15.2f DKK %38s │%n", userPortfolio.getBalance(), "");
+        System.out.printf(Locale.GERMANY, "│ Samlet Formue:     %,15.2f DKK %38s │%n", userPortfolio.getTotalValue(), "");
+        System.out.println("─────────────────────────────────────────────────────────────────────────────────");
 
         HashMap<String, Integer> holdings = userPortfolio.getHoldings();
         if (holdings.isEmpty()) {
-            System.out.println("Du har ingen aktier!");
+            System.out.println("│ Du har ingen aktier i din portefølje                                           │");
+            System.out.println("═══════════════════════════════════════════════════════════════════════════════");
             return;
         }
+
+        System.out.printf("│ %-10s │ %-10s │ %-15s │ %-15s │ %-15s │%n",
+                "Ticker", "Antal", "Pris/Aktie", "Total Værdi", "Årlig Stigning");
+        System.out.println("├────────────┼────────────┼─────────────────┼─────────────────┼─────────────────┤");
 
         for (HashMap.Entry<String, Integer> e : holdings.entrySet()) {
             String ticker = e.getKey();
             int shares = e.getValue();
 
             Stock s = findStock(ticker);
-            double stockValueTotal = s.getPrice() * shares;
+            double stockPrice = s.getPrice();
+            double stockValueTotal = stockPrice * shares;
+            String currency = s.getCurrency();
+            double dividendYield = s.getDividendYield();
 
-            System.out.println("Aktie: " + ticker + " | Antal: " + shares + " | Aktieværdi i alt: " +
-                    stockValueTotal + s.getCurrency() + " | Årlig stigning: " + s.getDividendYield() + "% ");
+            System.out.printf(Locale.GERMANY, "│ %-10s │ %,10d │ %,11.2f %-3s │ %,11.2f %-3s │ %,14.2f%% │%n",
+                    ticker, shares, stockPrice, currency, stockValueTotal, currency, dividendYield);
         }
+        System.out.println("═════════════════════════════════════════════════════════════════════════════════");
     }
 
     public void displayPortfolioAdmin() {
         System.out.println(
-                "┌───────────────────────────────────┐\n" +
-                "│ Her er alle brugernes porteføljer!│\n" +
-                "└───────────────────────────────────┘");
+                """
+                        ═════════════════════════════════════════════════════════════════════════════════
+                                              SAMLET PORTEFØLJER FOR ALLE MEDLEMMER             \s
+                        ═════════════════════════════════════════════════════════════════════════════════""");
 
         for (Portfolio p : portfolioList) {
-            System.out.print("BrugerID: " + p.getUserID() + " | ");
-
             User u = findUser(p.getUserID());
 
-            System.out.print("Fuldt navn: " + u.getFullName() + " | ");
-            System.out.print("Kontantbeholdning: " + p.getBalance());
+            System.out.println("─────────────────────────────────────────────────────────────────────────────────");
+            System.out.printf(Locale.GERMANY, "│ BrugerID: %-3d │ Navn: %-27s │ Kontant: %,12.2f DKK │%n",
+                    p.getUserID(), u.getFullName(), p.getBalance());
+            System.out.printf(Locale.GERMANY, "│ Formue: %,12.2f DKK %52s │ %n", p.getTotalValue(), "");
+            System.out.println("─────────────────────────────────────────────────────────────────────────────────");
 
             HashMap<String, Integer> holdings = p.getHoldings();
             if (holdings.isEmpty()) {
-                System.out.println("Bruger har ingen aktier!");
-                return;
-            }
+                System.out.println("│ Ingen aktier i portefølje                                                            │");
+            } else {
+                System.out.printf("│ %-10s │ %-10s │ %-15s │ %-15s │ %-15s │%n",
+                        "Ticker", "Antal", "Pris/Aktie", "Total Værdi", "Årlig Stigning");
+                System.out.println("├────────────┼────────────┼─────────────────┼─────────────────┼─────────────────┤");
 
-            System.out.println(" ");
-            for (HashMap.Entry<String, Integer> e : holdings.entrySet()) {
-                String ticker = e.getKey();
-                int shares = e.getValue();
+                for (HashMap.Entry<String, Integer> e : holdings.entrySet()) {
+                    String ticker = e.getKey();
+                    int shares = e.getValue();
 
-                System.out.print("Aktie: " + ticker + " Antal: " + shares + " | ");
+                    Stock s = findStock(ticker);
+                    double stockPrice = s.getPrice();
+                    double stockValueTotal = stockPrice * shares;
+                    String currency = s.getCurrency();
+                    double dividendYield = s.getDividendYield();
+
+                    System.out.printf(Locale.GERMANY, "│ %-10s │ %,10d │ %,11.2f %-3s │ %,11.2f %-3s │ %,14.2f%% │%n",
+                            ticker, shares, stockPrice, currency, stockValueTotal, currency, dividendYield);
+                }
             }
-            System.out.println("\n ");
+            System.out.println("─────────────────────────────────────────────────────────────────────────────────");
+            System.out.println();
         }
     }
 
