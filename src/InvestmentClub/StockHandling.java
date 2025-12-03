@@ -25,6 +25,7 @@ public class StockHandling {
 
     public StockHandling(ArrayList<String[]> stockData) {
         makeStocks(stockData, stocksList);
+        stocksList.sort(Stock.AlphabeticalByName);
         this.nextTransactionID = nextTransactionID + 1;
     }
 

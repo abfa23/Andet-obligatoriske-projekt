@@ -1,6 +1,7 @@
 package Objects;
 
 import InvestmentClub.StockHandling;
+import java.util.Comparator;
 
 public class Stock /*implements Comparable<Stock>*/ {
     private double price;
@@ -50,10 +51,8 @@ public class Stock /*implements Comparable<Stock>*/ {
 
     public String getLastUpdated() { return lastUpdated; }
 
-//    @Override
-//    public double compareTo(Stock other) {
-//        return Double.compare(this.price, other.price);
-//    }
+    public static Comparator<Stock> AlphabeticalByName =
+            Comparator.comparing(Stock::getName, String.CASE_INSENSITIVE_ORDER);
 
     @Override
     public String toString() {
