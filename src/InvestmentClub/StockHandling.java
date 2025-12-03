@@ -1,7 +1,5 @@
 package InvestmentClub;
 
-import FileHandler.ReadStockMarket;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,7 +15,6 @@ import Entities.User;
 public class StockHandling {
     public ArrayList<Portfolio> portfolioList = new ArrayList<>();
     private int nextTransactionID;
-    private LocalDate localDate;
     public static ArrayList<Stock> stocksList = new ArrayList<>();
 
     public StockHandling(ArrayList<String[]> stockData) {
@@ -71,7 +68,7 @@ public class StockHandling {
     }
 
     public String currentDate() {
-        localDate = LocalDate.now();
+        LocalDate localDate = LocalDate.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
         return localDate.format(format);
@@ -101,6 +98,7 @@ public class StockHandling {
             System.out.println("Fejl med aktien: '" + ticker + "' findes ikke.");
             return;
         }
+
         String sharesInput = UserLogin.sc.askQuestion("Hvor mange aktier vil du købe?");
 
         if (!InputHandler.ValidateInputIsInt(sharesInput)) {

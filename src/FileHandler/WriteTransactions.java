@@ -6,7 +6,6 @@ import Entities.Transaction;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class WriteTransactions implements CSVWriter {
     Transaction toWrite;
@@ -30,10 +29,10 @@ public class WriteTransactions implements CSVWriter {
         String id = Integer.toString(toFormat.getTransactionID());
         String userID = Integer.toString(toWrite.getUserID());
         String date = stockHandling.currentDate();
-        String ticker = toFormat.getTicker();
+        String ticker = toFormat.getTicker().toUpperCase();
         double price = toFormat.getPrice();
         String currency = toFormat.getCurrency();
-                String orderType = toFormat.getOrderType();
+        String orderType = toFormat.getOrderType();
         String shares = Integer.toString(toFormat.getBoughtShares());
 
         return "\n" + id + ";" + userID + ";" + date + ";" + ticker + ";" + price + ";" + currency + ";" + orderType + ";" + shares;
