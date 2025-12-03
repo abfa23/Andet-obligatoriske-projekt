@@ -42,7 +42,7 @@ public class AdminMenu {
 
                     break;
                 case 4:
-
+                    userLogin.logout();
                     break;
 
                 case 5:

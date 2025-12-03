@@ -127,5 +127,15 @@ public class UserLogin {
         }
         am.MainMenu();
     }
+    public void logout() {
+        System.out.println("logger ud...");
+
+        this.currentUser = null;
+        this.currentUserID = 0;
+
+        System.out.println("Du er nu logget ud.");
+
+        login();
+    }
 }
 
