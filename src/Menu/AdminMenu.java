@@ -30,7 +30,7 @@ public class AdminMenu {
 
         while (!isDone) {
             adminInterface();
-            int userChoice = sh.askNumber(3);
+            int userChoice = sh.askNumber(5);
             switch (userChoice) {
                 case 1:
                     ph.displayPortfolioAdmin();
@@ -39,8 +39,17 @@ public class AdminMenu {
                     ph.displayRanking();
                     break;
                 case 3:
-
+                    ph.showStockStatistics();
                     break;
+                case 4:
+                    userLogin.logout();
+                    break;
+
+                case 5:
+                    System.out.println("lukker ned...");
+                    System.exit(0);
+                    break;
+
             }
         }
     }
@@ -54,6 +63,7 @@ public class AdminMenu {
                 │ Tryk  2 for at få en rangliste over brugerne.                  │
                 │ Tryk  3 for at få vist en fordelinger på aktier og sektorer.   │
                 │ Tryk  4 for at logge ud.                                       │
+                │ Tryk  5 for at luk ned.                                        │
                 └────────────────────────────────────────────────────────────────┘
                 """);
     }
