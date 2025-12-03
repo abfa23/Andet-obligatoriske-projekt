@@ -5,6 +5,7 @@ import FileHandler.ReadStockMarket;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import FileHandler.WriteTransactions;
@@ -60,7 +61,7 @@ public class StockHandling {
 
     public String currentDate() {
         localDate = LocalDate.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
         return localDate.format(format);
     }
@@ -84,8 +85,9 @@ public class StockHandling {
         }
         String sharesInput = UserLogin.sc.askQuestion("Hvor mange aktier vil du købe?");
 
-        if (!InputHandler.ValidateInputIsInt(sharesInput));
-        System.out.println("Fejl: Du skal indtaste et heltal.");
+        if (!InputHandler.ValidateInputIsInt(sharesInput)) {
+            System.out.println("Fejl: Du skal indtaste et heltal.");
+        }
 
         int shares = Integer.parseInt(sharesInput);
 
@@ -94,21 +96,43 @@ public class StockHandling {
 
         }
 
-        Portfolio p = findPortfolio(currentUser.getUserID());
+        // DEBUG: Print what we're looking for
+        System.out.println("DEBUG: Looking for userID: " + currentUser.getUserID());
+        System.out.println("DEBUG: Number of portfolios: " + portfolioHandling.portfolioList.size());
+
+
+        for (Portfolio portfolio : portfolioHandling.portfolioList) {
+            System.out.println("DEBUG: Found portfolio with userID: " + portfolio.getUserID());
+            break;
+        }
+
+
+        Portfolio p = null;
+        for (Portfolio portfolio : portfolioHandling.portfolioList) {
+            if (portfolio.getUserID() == currentUser.getUserID()) {
+                p = portfolio;
+                break;
+            }
+        }
+
+        if (p == null) {
+            System.out.println("Fejl: Kunne ikke finde portfolio for userID: " + currentUser.getUserID());
+            return;
+        }
 
         double totalPrice = selectedStock.getPrice() * shares;
 
         System.out.println("Total pris: " + totalPrice + " " + selectedStock.getCurrency());
         if (!InputHandler.validateEnoughCash(p, totalPrice)) {
             System.out.println("Fejl: Du har ikke nok penge til at købe " + shares + " aktier.");
-            System.out.println("Din kontaktbeholdning: " + p.getBalance() + " DKK");
+            System.out.println("Din kontantbeholdning: " + p.getBalance() + " DKK");
         }
 
         String confirmation = UserLogin.sc.askQuestion("Vil du bekræfte købet? (ja/nej)");
-        if (!confirmation.equalsIgnoreCase("Nej")) {
+        if (!confirmation.equalsIgnoreCase("Ja")) {
             System.out.println("Køb annulleret");
         }
-        Transaction transaction = new Transaction(nextTransactionID, currentUser.getUserID(), currentDate(), ticker, selectedStock.getPrice(), selectedStock.getCurrency(), "Buy", shares);
+        Transaction transaction = new Transaction(nextTransactionID, currentUser.getUserID(), currentDate(), ticker, selectedStock.getPrice(), selectedStock.getCurrency(), "buy", shares);
 
         WriteTransactions writer = new WriteTransactions(transaction, this);
         writer.writer();
@@ -124,6 +148,65 @@ public class StockHandling {
     public void sellStock(User currentUser, PortfolioHandling portfolioHandling) {
         System.out.println("\n--- salg af aktier ---");
 
+        Portfolio p = findPortfolio(currentUser.getUserID());
+
         portfolioHandling.displayPortfolio(currentUser.getUserID());
+
+        if (p.getHoldings().isEmpty()) {
+            System.out.println("Du har ingen aktier at sælge!");
+        }
+
+        String ticker = UserLogin.sc.askQuestion("Indtast ticker på den aktie du vil sælge");
+
+        if (!p.getHoldings().containsKey(ticker)) {
+            System.out.println("Fejl: Du ejer ikke aktier af '" + ticker + "'.");
+        }
+
+        Stock selectedStock = portfolioHandling.findStock(ticker);
+        if (selectedStock == null) {
+            System.out.println("Fejl: Aktien '" + ticker + "' findes ikke i markedet.");
+        }
+
+        int currentShares = p.getHoldings().get(ticker);
+        System.out.println("Du ejer " + currentShares + " aktier af " + ticker);
+
+        String sharesInput = UserLogin.sc.askQuestion("Hvor mange aktier vil du sælge?");
+
+        if (!InputHandler.ValidateInputIsInt(sharesInput)) {
+            System.out.println("Fejl: Du skal indtaste et heltal.");
+        }
+        int shares = Integer.parseInt(sharesInput);
+
+        if (shares <= 0) {
+            System.out.println("Fejl: Du skal sælge mindst 1 aktie.");
+        }
+
+        if (shares > currentShares) {
+            System.out.println("Fejl: Du kan ikke sælge flere aktier end du ejer.");
+            System.out.println("Du ejer kun " + currentShares + " aktier af " + ticker);
+        }
+
+        double totalPrice = selectedStock.getPrice() * shares;
+
+        System.out.println("Total salgspris: " + totalPrice + " " + selectedStock.getCurrency());
+        System.out.println("Din nuværende kontantbeholdning: " + p.getBalance() + " DKK");
+
+        String confirmation = UserLogin.sc.askQuestion("Vil du bekræfte salget (ja/nej");
+        if (!confirmation.equalsIgnoreCase("Ja")) {
+            System.out.println("Salg annulleret");
+        }
+
+        Transaction transaction = new Transaction(nextTransactionID, currentUser.getUserID(), currentDate(), ticker, selectedStock.getPrice(), selectedStock.getCurrency(), "Sell", shares);
+        WriteTransactions writer = new WriteTransactions(transaction, this);
+        writer.writer();
+
+        portfolioHandling.calculatePortfolio();
+
+        nextTransactionID++;
+
+        System.out.println("\nSalg gennemført.");
+        System.out.println("Du har solgt " + shares + " aktier af  + ticker");
+        System.out.println("Ny kontantbeholdning: " + findPortfolio(currentUser.getUserID()).getBalance() + " DKK");
     }
+
 }

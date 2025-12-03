@@ -4,6 +4,9 @@ import FileHandler.ReadStockMarket;
 import FileHandler.ReadTransactions;
 import FileHandler.ReadUsers;
 import InvestmentClub.*;
+import Objects.User;
+
+import static InvestmentClub.UserLogin.getCurrentUser;
 
 public class UserMenu {
     ScannerHelper sh = new ScannerHelper();
@@ -36,10 +39,10 @@ public class UserMenu {
                     stockHandling.StockMarket();
                     break;
                 case 2:
-
+                    stockHandling.buyStock(UserLogin.getCurrentUser(), ph);
                     break;
                 case 3:
-
+                    stockHandling.sellStock(UserLogin.getCurrentUser(), ph);
                     break;
                 case 4:
                     ph.displayPortfolio(UserLogin.getCurrentUserID());

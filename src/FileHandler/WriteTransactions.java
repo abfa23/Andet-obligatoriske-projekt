@@ -21,7 +21,6 @@ public class WriteTransactions implements CSVWriter {
     public void writer() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/FileHandler/Database/transactions.csv", true))) {
             writer.write(format(toWrite));
-            writer.newLine();
         } catch (IOException e) {
             System.out.println("ERROR: IOException");
         }
@@ -29,13 +28,14 @@ public class WriteTransactions implements CSVWriter {
 
     public String format(Transaction toFormat) {
         String id = Integer.toString(toFormat.getTransactionID());
-//        String userID = Integer.toString(toWrite.getUserID().getUserID());
+        String userID = Integer.toString(toWrite.getUserID());
         String date = stockHandling.currentDate();
         String ticker = toFormat.getTicker();
         double price = toFormat.getPrice();
-//        String orderType =
+        String currency = toFormat.getCurrency();
+                String orderType = toFormat.getOrderType();
         String shares = Integer.toString(toFormat.getBoughtShares());
 
-        return id + ";" + /*userID +*/ ";" + date + ";" + ticker + ";" + price + ";" + /*orderType +*/ ";" + shares;
+        return "\n" + id + ";" + userID + ";" + date + ";" + ticker + ";" + price + ";" + currency + ";" + orderType + ";" + shares;
     }
 }

@@ -16,7 +16,17 @@ public class TransactionHistory {
 
     //laver transactions arraylisten med transaction objekter ud fra reader data
     public void makeTransactionObjects(ArrayList<String[]> transData, ArrayList<Transaction> transactions) {
+
         for (String[] strings : transData) {
+            if (strings.length == 0 || strings[0].trim().isEmpty()) {
+                continue;
+            }
+
+            if (strings.length < 8) {
+                System.out.println("Warning: Skipping incomplete transaction row");
+                continue;
+            }
+
             int transactionID = Integer.parseInt(strings[0]);
             int userID = Integer.parseInt(strings[1]);
             String date = strings[2];
