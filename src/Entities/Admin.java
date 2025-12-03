@@ -1,4 +1,4 @@
-package Objects;
+package Entities;
 
 public class Admin {
     private String username;

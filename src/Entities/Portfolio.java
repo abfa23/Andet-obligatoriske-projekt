@@ -1,4 +1,4 @@
-package Objects;
+package Entities;
 
 import java.util.HashMap;
 

@@ -1,6 +1,5 @@
-package Objects;
+package Entities;
 
-import InvestmentClub.StockHandling;
 import java.util.Comparator;
 
 public class Stock /*implements Comparable<Stock>*/ {
