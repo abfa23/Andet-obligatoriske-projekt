@@ -47,6 +47,13 @@ public class UserMenu {
                 case 5:
                     transactionHistory.printTransactionHistory();
                     break;
+                case 6:
+
+                    break;
+                case 7:
+                    System.out.println("lukker ned...");
+                    System.exit(0);
+                    break;
             }
         }
     }
@@ -61,6 +68,8 @@ public class UserMenu {
                 │ Tryk  3 for at registrere salg af aktier         │
                 │ Tryk  4 for at se portfolio.                     │
                 │ Tryk  5 for at se transaktionshistorik.          │
+                │ Tryk  6 fot at log ud.                           │
+                │ Tryk  7 for at luk ned.                          │
                 └──────────────────────────────────────────────────┘
                 """);
     }

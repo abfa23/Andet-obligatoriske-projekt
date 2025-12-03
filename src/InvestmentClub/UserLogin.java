@@ -53,9 +53,10 @@ public class UserLogin {
                 ┌──────────────────────────────────────────────────┐
                 │ Tryk  1 for at logge ind som bruger.             │
                 │ Tryk  2 for at logge ind som admin.              │
+                │ Tryk  3 for at luk programmet.                   │
                 └──────────────────────────────────────────────────┘
                 """);
-        int choiceInput = sc.askNumber(2);
+        int choiceInput = sc.askNumber(3);
 
         //viderestiller baseret på input til login menu.
         switch (choiceInput) {
@@ -66,6 +67,10 @@ public class UserLogin {
             case 2:
                 adminLogin();
                 break;
+
+            case 3:
+                System.out.println("Lukker ned...");
+                System.exit(0);
             default:
                 System.out.println("Uventet fejl!");
                 login();
