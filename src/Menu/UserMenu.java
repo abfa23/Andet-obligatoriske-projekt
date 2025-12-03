@@ -48,6 +48,10 @@ public class UserMenu {
                     ph.displayPortfolio(UserLogin.getCurrentUserID());
                     break;
                 case 5:
+                    //opdaterer, hvis ændringer lavet
+                    ReadTransactions readTransAgain = new ReadTransactions();
+                    transactionHistory = new TransactionHistory(readTransAgain.reader());
+
                     transactionHistory.printTransactionHistory();
                     break;
                 case 6:

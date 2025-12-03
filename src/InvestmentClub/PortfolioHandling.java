@@ -11,7 +11,7 @@ public class PortfolioHandling {
     public ArrayList<Portfolio> portfolioList = new ArrayList<>();
 
     private ArrayList<User> users;
-    private ArrayList<Transaction> transactions;
+    public ArrayList<Transaction> transactions;
     private ArrayList<Stock> stocksList;
 
     public PortfolioHandling(ArrayList<User> users, ArrayList<Transaction> transactions, ArrayList<Stock> stocksList) {
