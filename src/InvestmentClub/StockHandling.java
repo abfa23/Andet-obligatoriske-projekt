@@ -11,6 +11,7 @@ import Entities.Portfolio;
 import Entities.Stock;
 import Entities.Transaction;
 import Entities.User;
+import InvestmentClub.UIHelper.*;
 
 public class StockHandling {
     public ArrayList<Portfolio> portfolioList = new ArrayList<>();
@@ -89,15 +90,21 @@ public class StockHandling {
 //                                                   KØB AKTIER\s
 //                ═════════════════════════════════════════════════════════════════════════════════""");
 
+        UIHelper.printBuyHeader();
 
         displayStockMarket();
 
-        String ticker = UserLogin.sc.askQuestion("Indtast ticker på den aktie du vil købe.");
-        Stock selectedStock = portfolioHandling.findStock(ticker);
-        if (selectedStock == null) {
-            System.out.println("Fejl med aktien: '" + ticker + "' findes ikke.");
-            return;
+        Stock selectedStock = null;
+
+        while (selectedStock == null) {
+            String ticker = UserLogin.sc.askQuestion("Indtast ticker på den aktie du vil købe.");
+            selectedStock = portfolioHandling.findStock(ticker);
+
+            if (selectedStock == null) {
+                System.out.println("Fejl med aktien: '" + ticker + "' findes ikke.");
+            }
         }
+
 
         String sharesInput = UserLogin.sc.askQuestion("Hvor mange aktier vil du købe?");
 
@@ -127,9 +134,14 @@ public class StockHandling {
             return;
         }
 
+        Stock name = selectedStock.getName();
         double totalPrice = selectedStock.getPrice() * shares;
+        double currentBalance = selectedStock.;
+
+        UIHelper.printBuySummary(name, shares, totalPrice, currentBalance);
 
         System.out.println("Total pris: " + totalPrice + " " + selectedStock.getCurrency());
+
         if (!InputHandler.validateEnoughCash(p, totalPrice)) {
             System.out.println("Fejl: Du har ikke nok penge til at købe " + shares + " aktier.");
             System.out.println("Din kontantbeholdning: " + p.getBalance() + " DKK");
@@ -142,7 +154,7 @@ public class StockHandling {
             return;
         }
 
-        Transaction transaction = new Transaction(nextTransactionID, currentUser.getUserID(), currentDate(), ticker, selectedStock.getPrice(), selectedStock.getCurrency(), "buy", shares);
+        Transaction transaction = new Transaction(nextTransactionID, currentUser.getUserID(), currentDate(), selectedStock.getTicker(), selectedStock.getPrice(), selectedStock.getCurrency(), "buy", shares);
         WriteTransactions writer = new WriteTransactions(transaction, this);
         writer.writer();
 
@@ -165,7 +177,7 @@ public class StockHandling {
 
         nextTransactionID++;
         System.out.println("\n Køb gennemført!");
-        System.out.println("Du har købt " + shares + " aktier af " + ticker);
+        System.out.println("Du har købt " + shares + " aktier af " + selectedStock.getTicker());
     }
 
     public void sellStock(User currentUser, PortfolioHandling portfolioHandling) {

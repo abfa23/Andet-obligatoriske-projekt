@@ -47,60 +47,72 @@ public class UserLogin {
 
     //valg af slags login
     public void login() {
-        System.out.println();
-        System.out.println("""
-                ═════════════════════════════════════════════════════════════════════════════════
-                                      VELKOMMEN TIL INVESTERINGSKLUBBEN!\s
-                ═════════════════════════════════════════════════════════════════════════════════
-                │                                                                               │
-                │  [1] 👤  Log ind som bruger                                                   │
-                │                                                                               │
-                │  [2] 🔐  Log ind som admin                                                    │
-                │                                                                               │
-                │  [3] ❌  Luk programmet                                                       │
-                │                                                                               │
-                ═════════════════════════════════════════════════════════════════════════════════
-                """);
-        System.out.print("Vælg venligst en mulighed (1-3): ");
+//        System.out.println();
+//        System.out.println("""
+//                ═════════════════════════════════════════════════════════════════════════════════
+//                                      VELKOMMEN TIL INVESTERINGSKLUBBEN!\s
+//                ═════════════════════════════════════════════════════════════════════════════════
+//                │                                                                               │
+//                │  [1] 👤  Log ind som bruger                                                   │
+//                │                                                                               │
+//                │  [2] 🔐  Log ind som admin                                                    │
+//                │                                                                               │
+//                │  [3] ❌  Luk programmet                                                       │
+//                │                                                                               │
+//                ═════════════════════════════════════════════════════════════════════════════════
+//                """);
+//        System.out.print("Vælg venligst en mulighed (1-3): ");
+        boolean isDone = false;
 
-        int choiceInput = sc.askNumber(3);
-        System.out.println();
+        while(!isDone) {
+            UIHelper.displayLoginMenu();
+            int choiceInput = sc.askNumber(3);
+            UIHelper.printBlankLine();
 
-        //viderestiller baseret på input til login menu.
-        switch (choiceInput) {
-            case 1:
-                userLogin();
-                break;
-            case 2:
-                adminLogin();
-                break;
-            case 3:
-                System.out.println("\nLukker ned...");
-                System.exit(0);
-            default:
-                System.out.println("\nUventet fejl!");
-                login();
+            //viderestiller baseret på input til login menu.
+            switch (choiceInput) {
+                case 1:
+                    userLogin();
+                    break;
+                case 2:
+                    adminLogin();
+                    break;
+                case 3:
+                    System.out.println("\nLukker ned...");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("\nUventet fejl!");
+                    login();
+                    break;
+            }
         }
     }
 
     //bruger login
     public void userLogin() {
         UserMenu um = new UserMenu();
+        boolean loggedIn = false;
 
-        String emailInput = sc.askQuestion("Indtast venligst din email for at logge ind");
-
-        //tjekker hvis emailen indtastet matcher en i users og kommer videre, hvis der er
-        for (User s : users) {
-            if (s.getEmail().equalsIgnoreCase(emailInput)) {
-                this.currentUser = s;
-                this.currentUserID = s.getUserID();
-                um.UserMainMenu();
-                return;
+        while (!loggedIn) {
+            String emailInput = sc.askQuestion("Indtast venligst din email for at logge ind");
+            //tjekker hvis emailen indtastet matcher en i users og kommer videre, hvis der er
+            for (User s : users) {
+                if (s.getEmail().equalsIgnoreCase(emailInput)) {
+                    this.currentUser = s;
+                    this.currentUserID = s.getUserID();
+                    loggedIn = true;
+                    break;
+                }
+            }
+            //fejlet og prøver igen med nyt login
+            if (!loggedIn) {
+                System.out.println("Kan ikke finde email, prøv igen!");
             }
         }
-        //fejlet og prøver igen med nyt login
-        System.out.println("Kan ikke finde email, prøv igen!");
-        userLogin();
+
+        um.UserMainMenu();
+//        logout();
     }
 
     //admin login
@@ -130,8 +142,10 @@ public class UserLogin {
                 System.out.println("Password matcher ikke databasen. Forsøg igen!");
             }
         }
-        am.MainMenu();
+        am.AdminMainMenu();
+//        logout();
     }
+
     public void logout() {
         System.out.println("logger ud...");
 
@@ -139,8 +153,6 @@ public class UserLogin {
         this.currentUserID = 0;
 
         System.out.println("Du er nu logget ud.");
-
-        login();
     }
 }
 
