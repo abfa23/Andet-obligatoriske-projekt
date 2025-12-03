@@ -30,7 +30,7 @@ public class UserMenu {
 
         while (!isDone) {
             UserInterface();
-            int userChoice = sh.askNumber(5);
+            int userChoice = sh.askNumber(7);
             switch (userChoice) {
                 case 1:
                     stockHandling.StockMarket();
@@ -48,7 +48,7 @@ public class UserMenu {
                     transactionHistory.printTransactionHistory();
                     break;
                 case 6:
-
+                    userLogin.logout();
                     break;
                 case 7:
                     System.out.println("lukker ned...");
