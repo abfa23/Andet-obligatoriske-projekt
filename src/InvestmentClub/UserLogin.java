@@ -49,7 +49,7 @@ public class UserLogin {
     public void login() {
 
         System.out.println("""
-                           Velkommen til Investeringsklubben!
+                           VELKOMMEN TIL INVESTERINGSKLUBBEN!
                 ┌──────────────────────────────────────────────────┐
                 │ Tryk  1 for at logge ind som bruger.             │
                 │ Tryk  2 for at logge ind som admin.              │
