@@ -1,7 +1,6 @@
 package InvestmentClub;
 
-import Objects.Stock;
-import Objects.Transaction;
+import Entities.Transaction;
 
 import java.util.ArrayList;
 
@@ -62,6 +61,7 @@ public class TransactionHistory {
                         t.getDate());
             }
         }
+        System.out.println("\n\n");
     }
 }
 

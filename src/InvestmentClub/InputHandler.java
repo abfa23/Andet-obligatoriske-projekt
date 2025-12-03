@@ -1,7 +1,6 @@
 package InvestmentClub;
 
-import Objects.Portfolio;
-import Objects.User;
+import Entities.Portfolio;
 
 public class InputHandler {
 

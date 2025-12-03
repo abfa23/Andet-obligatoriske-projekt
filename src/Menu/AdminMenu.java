@@ -31,6 +31,7 @@ public class AdminMenu {
         while (!isDone) {
             adminInterface();
             int userChoice = sh.askNumber(5);
+            System.out.println();
             switch (userChoice) {
                 case 1:
                     ph.displayPortfolioAdmin();
@@ -57,15 +58,23 @@ public class AdminMenu {
     public void adminInterface() {
         System.out.println();
         System.out.println("""
-                           Velkommen til admin menuen!
-                ┌────────────────────────────────────────────────────────────────┐
-                │ Tryk  1 for at se en oversigt over brugernes porteføljeværdier.│
-                │ Tryk  2 for at få en rangliste over brugerne.                  │
-                │ Tryk  3 for at få vist en fordelinger på aktier og sektorer.   │
-                │ Tryk  4 for at logge ud.                                       │
-                │ Tryk  5 for at luk ned.                                        │
-                └────────────────────────────────────────────────────────────────┘
+                ═════════════════════════════════════════════════════════════════════════════════
+                                                   ADMIN MENU\s
+                ═════════════════════════════════════════════════════════════════════════════════
+                │                                                                               │
+                │  [1] 📊  Se oversigt over alle brugeres porteføljer                           │
+                │                                                                               │
+                │  [2] 🏆  Vis rangliste over brugere                                           │
+                │                                                                               │
+                │  [3] 📈  Se fordeling på aktier og sektorer                                   │
+                │                                                                               │
+                │  [4] 🚪  Log ud                                                               │
+                │                                                                               │
+                │  [5] ❌  Luk programmet                                                       │
+                │                                                                               │
+                ═════════════════════════════════════════════════════════════════════════════════
                 """);
+        System.out.print("Vælg venligst en mulighed (1-5): ");
     }
 }
 

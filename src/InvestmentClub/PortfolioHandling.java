@@ -1,9 +1,9 @@
 package InvestmentClub;
 
-import Objects.Portfolio;
-import Objects.Stock;
-import Objects.Transaction;
-import Objects.User;
+import Entities.Portfolio;
+import Entities.Stock;
+import Entities.Transaction;
+import Entities.User;
 
 import java.util.*;
 
@@ -73,19 +73,24 @@ public class PortfolioHandling {
         ArrayList<Portfolio> sortedPortfolios = new ArrayList<>(portfolioList);
         Collections.sort(sortedPortfolios);
 
-        System.out.println("┌───────────────────────────────────┐\n" +
-                "│     RANGLISTE - SAMLET FORMUE     │\n" +
-                "└───────────────────────────────────┘");
-        System.out.printf("%-6s %-21s%-1s%n", "Rang", "Navn", "Formue");
+        System.out.println("""
+                ═══════════════════════════════════════════════════════════════════════════════════
+                                           RANGLISTE - SAMLET FORMUE\s
+                ═══════════════════════════════════════════════════════════════════════════════════""");
+
+        System.out.printf("│ %-6s │ %-35s │ %-32s │%n", "Rang", "Navn", "Formue");
+        System.out.println("├────────┼─────────────────────────────────────┼──────────────────────────────────┤");
 
         int rank = 1;
         for (Portfolio p : sortedPortfolios) {
             User u = findUser(p.getUserID());
 
-            System.out.printf(Locale.GERMANY, "%-6d %-20s %,-10.2f%s%n", rank++, u.getFullName(), (p.getTotalValue()), "DKK");
+            System.out.printf(Locale.GERMANY, "│ %-6d │ %-35s │ %,28.2f DKK │%n",
+                    rank++, u.getFullName(), p.getTotalValue());
         }
-
+        System.out.println("═══════════════════════════════════════════════════════════════════════════════════\n\n");
     }
+
 
     public void displayPortfolio(int userID) {
         Portfolio userPortfolio = null;
@@ -114,7 +119,7 @@ public class PortfolioHandling {
         HashMap<String, Integer> holdings = userPortfolio.getHoldings();
         if (holdings.isEmpty()) {
             System.out.println("│ Du har ingen aktier i din portefølje                                           │");
-            System.out.println("═══════════════════════════════════════════════════════════════════════════════");
+            System.out.println("═══════════════════════════════════════════════════════════════════════════════\n\n");
             return;
         }
 
@@ -135,15 +140,16 @@ public class PortfolioHandling {
             System.out.printf(Locale.GERMANY, "│ %-10s │ %,10d │ %,11.2f %-3s │ %,11.2f %-3s │ %,14.2f%% │%n",
                     ticker, shares, stockPrice, currency, stockValueTotal, currency, dividendYield);
         }
-        System.out.println("═════════════════════════════════════════════════════════════════════════════════");
+        System.out.println("═════════════════════════════════════════════════════════════════════════════════\n\n");
     }
 
     public void displayPortfolioAdmin() {
         System.out.println(
                 """
                         ═════════════════════════════════════════════════════════════════════════════════
-                                              SAMLET PORTEFØLJER FOR ALLE MEDLEMMER             \s
+                                              SAMLET PORTEFØLJER FOR ALLE MEDLEMMER\s
                         ═════════════════════════════════════════════════════════════════════════════════""");
+        System.out.println();
 
         for (Portfolio p : portfolioList) {
             User u = findUser(p.getUserID());
@@ -176,18 +182,19 @@ public class PortfolioHandling {
                             ticker, shares, stockPrice, currency, stockValueTotal, currency, dividendYield);
                 }
             }
-            System.out.println("─────────────────────────────────────────────────────────────────────────────────");
-            System.out.println();
+            System.out.println("─────────────────────────────────────────────────────────────────────────────────\n");
         }
+        System.out.println();
     }
 
     public void showStockStatistics() {
         HashMap<String, Integer> stock = new HashMap<>();
         HashMap<String, Integer> sector = new HashMap<>();
 
-        System.out.println("┌───────────────────────────────────────┐");
-        System.out.println("│  AKTIESTATISTIK - sektorer og aktier  │");
-        System.out.println("└───────────────────────────────────────┘");
+        System.out.println("""
+                ═════════════════════════════════════════════════════════════════════════════════
+                                       AKTIESTATISTIK - SEKTORER OG AKTIER
+                ═════════════════════════════════════════════════════════════════════════════════""");
 
         for (Portfolio p : portfolioList) {
             HashMap<String, Integer> holdings = p.getHoldings();
@@ -209,19 +216,28 @@ public class PortfolioHandling {
             }
         }
 
-        System.out.println("Sektorer statistik");
+        System.out.println("│                                SEKTOR STATISTIK                               │");
+        System.out.println("├───────────────────────────────────────────────┬───────────────────────────────┤");
+        System.out.printf("│ %-45s │ %-29s │%n", "Sektor navn", "Antal aktier købt i sektor");
+        System.out.println("├───────────────────────────────────────────────┼───────────────────────────────┤");
+
         for (HashMap.Entry<String, Integer> e : sector.entrySet()) {
-            System.out.println("Sektorer navn: " + e.getKey() + " | Antal aktier købt i sektor: " + e.getValue());
+            System.out.printf(Locale.GERMANY, "│ %-45s │ %,29d │%n", e.getKey(), e.getValue());
         }
 
-        System.out.println(" ");
+        System.out.println("─────────────────────────────────────────────────────────────────────────────────");
+        System.out.println("│                                AKTIE STATISTIK                                │");
+        System.out.println("├───────────────────────────────────────────────┬───────────────────────────────┤");
+        System.out.printf("│ %-45s │ %-29s │%n", "Ticker", "Antal aktier/bruger");
+        System.out.println("├───────────────────────────────────────────────┼───────────────────────────────┤");
 
-        System.out.println("Aktie statistik");
         for (HashMap.Entry<String, Integer> e : stock.entrySet()) {
-            System.out.println("Ticker aktie: " + e.getKey() + " | Antal aktier ejet af brugere: " + e.getValue());
+            System.out.printf(Locale.GERMANY, "│ %-45s │ %,29d │%n", e.getKey(), e.getValue());
         }
 
+        System.out.println("═════════════════════════════════════════════════════════════════════════════════\n\n");
     }
+
 
     //hjælpe metode til at finde aktie der passer med ticker for at kunne bruge getters til aktien til display metoden.
     public Stock findStock(String ticker) {
@@ -233,7 +249,7 @@ public class PortfolioHandling {
         return null;
     }
 
-    //hjælpe metode til at finde user der passer med user bruges til displayadmin metoden.
+    //hjælpe metode til at finde user der passer med user bruges til displayAdmin metoden.
     public User findUser(int userID) {
         for (User u : users) {
             if (u.getUserID() == userID) {

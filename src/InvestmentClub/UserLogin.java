@@ -2,8 +2,8 @@ package InvestmentClub;
 
 import Menu.AdminMenu;
 import Menu.UserMenu;
-import Objects.User;
-import Objects.Admin;
+import Entities.User;
+import Entities.Admin;
 import java.util.ArrayList;
 
 public class UserLogin {
@@ -47,32 +47,38 @@ public class UserLogin {
 
     //valg af slags login
     public void login() {
-
+        System.out.println();
         System.out.println("""
-                           VELKOMMEN TIL INVESTERINGSKLUBBEN!
-                ┌──────────────────────────────────────────────────┐
-                │ Tryk  1 for at logge ind som bruger.             │
-                │ Tryk  2 for at logge ind som admin.              │
-                │ Tryk  3 for at luk programmet.                   │
-                └──────────────────────────────────────────────────┘
+                ═════════════════════════════════════════════════════════════════════════════════
+                                      VELKOMMEN TIL INVESTERINGSKLUBBEN!\s
+                ═════════════════════════════════════════════════════════════════════════════════
+                │                                                                               │
+                │  [1] 👤  Log ind som bruger                                                   │
+                │                                                                               │
+                │  [2] 🔐  Log ind som admin                                                    │
+                │                                                                               │
+                │  [3] ❌  Luk programmet                                                       │
+                │                                                                               │
+                ═════════════════════════════════════════════════════════════════════════════════
                 """);
+        System.out.print("Vælg venligst en mulighed (1-3): ");
+
         int choiceInput = sc.askNumber(3);
+        System.out.println();
 
         //viderestiller baseret på input til login menu.
         switch (choiceInput) {
             case 1:
                 userLogin();
                 break;
-
             case 2:
                 adminLogin();
                 break;
-
             case 3:
-                System.out.println("Lukker ned...");
+                System.out.println("\nLukker ned...");
                 System.exit(0);
             default:
-                System.out.println("Uventet fejl!");
+                System.out.println("\nUventet fejl!");
                 login();
         }
     }
@@ -86,7 +92,6 @@ public class UserLogin {
         //tjekker hvis emailen indtastet matcher en i users og kommer videre, hvis der er
         for (User s : users) {
             if (s.getEmail().equalsIgnoreCase(emailInput)) {
-                System.out.println("Logged ind som bruger");
                 this.currentUser = s;
                 this.currentUserID = s.getUserID();
                 um.UserMainMenu();
@@ -120,7 +125,7 @@ public class UserLogin {
             //tjekker om password er admin password
             if (passwordInput.equals(a.getPassword())) {
                 loggedIn = true;
-                System.out.println("Logged ind som admin");
+                System.out.println("\n✅ Logged ind som admin");
             } else {
                 System.out.println("Password matcher ikke databasen. Forsøg igen!");
             }

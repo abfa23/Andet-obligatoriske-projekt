@@ -5,17 +5,14 @@ import FileHandler.ReadStockMarket;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.Locale;
 
 import FileHandler.ReadTransactions;
 import FileHandler.WriteTransactions;
-import Objects.Portfolio;
-import Objects.Stock;
-import Objects.Transaction;
-import Objects.User;
-
-import javax.sound.sampled.Port;
+import Entities.Portfolio;
+import Entities.Stock;
+import Entities.Transaction;
+import Entities.User;
 
 public class StockHandling {
     public ArrayList<Portfolio> portfolioList = new ArrayList<>();
@@ -51,15 +48,26 @@ public class StockHandling {
         }
     }
 
-    public static void StockMarket() {
+    public static void displayStockMarket() {
+        System.out.println();
+        System.out.println("""
+                ════════════════════════════════════════════════════════════════════════════════════════════
+                                                         AKTIEMARKED\s
+                ════════════════════════════════════════════════════════════════════════════════════════════""");
+        System.out.printf("│ %-25s │ %-10s │ %-14s │ %-20s │ %-7s │%n",
+                "Aktie Navn", "Ticker", "Pris", "Sektor", "Rating");
+        System.out.println("├───────────────────────────┼────────────┼────────────────┼──────────────────────┼─────────┤");
 
-        System.out.println(
-                "┌─────────────────────────┐\n" +
-                "│ Dette er aktiemarkedet! │\n" +
-                "└─────────────────────────┘");
         for (Stock s : stocksList) {
-            System.out.println(s);
+            System.out.printf(Locale.GERMANY, "│ %-25s │ %-10s │ %,10.2f %-3s │ %-20s │ %-7s │%n",
+                    s.getName().length() > 25 ? s.getName().substring(0, 22) + "..." : s.getName(),
+                    s.getTicker(),
+                    s.getPrice(),
+                    s.getCurrency(),
+                    s.getSector(),
+                    s.getRating());
         }
+        System.out.println("════════════════════════════════════════════════════════════════════════════════════════════\n\n");
     }
 
     public String currentDate() {
@@ -79,7 +87,13 @@ public class StockHandling {
 
 
     public void buyStock(User currentUser, PortfolioHandling portfolioHandling) {
-        StockMarket();
+//        System.out.println("""
+//                ═════════════════════════════════════════════════════════════════════════════════
+//                                                   KØB AKTIER\s
+//                ═════════════════════════════════════════════════════════════════════════════════""");
+
+
+        displayStockMarket();
 
         String ticker = UserLogin.sc.askQuestion("Indtast ticker på den aktie du vil købe.");
         Stock selectedStock = portfolioHandling.findStock(ticker);

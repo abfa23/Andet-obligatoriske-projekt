@@ -4,9 +4,6 @@ import FileHandler.ReadStockMarket;
 import FileHandler.ReadTransactions;
 import FileHandler.ReadUsers;
 import InvestmentClub.*;
-import Objects.User;
-
-import static InvestmentClub.UserLogin.getCurrentUser;
 
 public class UserMenu {
     ScannerHelper sh = new ScannerHelper();
@@ -36,7 +33,7 @@ public class UserMenu {
             int userChoice = sh.askNumber(7);
             switch (userChoice) {
                 case 1:
-                    stockHandling.StockMarket();
+                    stockHandling.displayStockMarket();
                     break;
                 case 2:
                     stockHandling.buyStock(UserLogin.getCurrentUser(), ph);
@@ -68,16 +65,30 @@ public class UserMenu {
     public void UserInterface() {
         System.out.println();
         System.out.println("""
-                           Velkommen til brugermenuen!
-                ┌──────────────────────────────────────────────────┐
-                │ Tryk  1 for at se aktiemarked og aktuel kurs.    │
-                │ Tryk  2 for at registrere køb af aktier.         │
-                │ Tryk  3 for at registrere salg af aktier         │
-                │ Tryk  4 for at se portfolio.                     │
-                │ Tryk  5 for at se transaktionshistorik.          │
-                │ Tryk  6 fot at log ud.                           │
-                │ Tryk  7 for at luk ned.                          │
-                └──────────────────────────────────────────────────┘
+                ═════════════════════════════════════════════════════════════════════════════════
+                                                BRUGER MENU\s
+                ═════════════════════════════════════════════════════════════════════════════════""");
+        System.out.printf("│ 👤 Logget ind som: %-62s │%n", UserLogin.getCurrentUser().getFullName());
+        System.out.println("""
+                ═════════════════════════════════════════════════════════════════════════════════
+                │                                                                               │
+                │  [1] 📈  Se aktiemarked og aktuelle kurser                                    │
+                │                                                                               │
+                │  [2] 💰  Køb aktier                                                           │
+                │                                                                               │
+                │  [3] 💸  Sælg aktier                                                          │
+                │                                                                               │
+                │  [4] 📂  Se min portefølje                                                    │
+                │                                                                               │
+                │  [5] 📜  Se transaktionshistorik                                              │
+                │                                                                               │
+                │  [6] 🚪  Log ud                                                               │
+                │                                                                               │
+                │  [7] ❌  Luk programmet                                                       │
+                │                                                                               │
+                ═════════════════════════════════════════════════════════════════════════════════
                 """);
+        System.out.print("Vælg venligst en mulighed (1-7): ");
     }
 }
+
