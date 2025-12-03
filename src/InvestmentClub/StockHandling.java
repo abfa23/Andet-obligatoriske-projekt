@@ -49,7 +49,10 @@ public class StockHandling {
 
     public static void StockMarket() {
 
-        System.out.println("Her vises aktiemarkedet: ");
+        System.out.println(
+                "┌─────────────────────────┐\n" +
+                "│ Dette er aktiemarkedet! │\n" +
+                "└─────────────────────────┘");
         for (Stock s : stocksList) {
             System.out.println(s);
         }
