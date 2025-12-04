@@ -5,6 +5,7 @@ import Entities.Transaction;
 import static InvestmentClub.UIHelper.*;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static InvestmentClub.UserLogin.getCurrentUserID;
 
@@ -45,16 +46,17 @@ public class TransactionHistory {
 //  printer transactions ud for medlem logget ind
     public void displayTransactionHistory() {
         UIHelper.printHeader("DIN TRANSAKTIONSHISTORIK");
-        System.out.printf("%-7s %-9s %-8s %-10s %-7s %-10s%n", "TICKER", "PRIS", "VALUTA", "KØB/SALG", "ANTAL", "DATO");
-        UIHelper.printSingleLine();
+        System.out.printf("│ %-13s │ %-12s │ %-8s │ %-10s │ %-7s │ %-12s │%n",
+                "Ticker", "Pris", "Valuta", "Køb/Salg", "Antal", "Dato");
+        System.out.println("├───────────────┼──────────────┼──────────┼────────────┼─────────┼──────────────┤");
 
         for (Transaction t : transactions) {
             if (t.getUserID() == getCurrentUserID()) {
-                System.out.printf("%-7s %-,9.2f %-8s %-10s %-7d %s%n",
+                System.out.printf(Locale.GERMANY, "│ %-13s │ %,12.2f │ %-8s │ %-10s │ %,7d │ %-12s │%n",
                         t.getTicker(),
                         t.getPrice(),
                         t.getCurrency(),
-                        t.getOrderType(),
+                        t.getOrderType().equalsIgnoreCase("buy") ? "Køb" : "Salg",
                         t.getBoughtShares(),
                         t.getDate());
             }
