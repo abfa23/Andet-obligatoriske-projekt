@@ -1,7 +1,7 @@
 package InvestmentClub;
 
 import FileHandler.ReadUsers;
-import Menu.*;
+
 import java.util.ArrayList;
 
 public class InvestmentClubTest {

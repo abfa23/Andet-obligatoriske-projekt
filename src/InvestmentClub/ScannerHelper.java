@@ -6,7 +6,7 @@ public class ScannerHelper {
 
     private Scanner sc;
 
-    public ScannerHelper () {
+    public ScannerHelper() {
         this.sc = new Scanner(System.in);
     }
 
@@ -38,6 +38,7 @@ public class ScannerHelper {
         }
         return selectInt;
     }
+
     //Metode til at få String fra scanner input
     public String askQuestion(String question) {
         System.out.print(question + ": ");

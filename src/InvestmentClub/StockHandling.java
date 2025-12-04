@@ -1,21 +1,20 @@
 package InvestmentClub;
 
+import Entities.Portfolio;
+import Entities.Stock;
+import Entities.Transaction;
+import Entities.User;
+import FileHandler.ReadTransactions;
+import FileHandler.WriteTransactions;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import FileHandler.ReadTransactions;
-import FileHandler.WriteTransactions;
-import Entities.Portfolio;
-import Entities.Stock;
-import Entities.Transaction;
-import Entities.User;
-import InvestmentClub.UIHelper.*;
-
 public class StockHandling {
-    public int nextTransactionID;
     public static ArrayList<Stock> stocksList = new ArrayList<>();
+    public int nextTransactionID;
 
     public StockHandling(ArrayList<String[]> stockData) {
         makeStocks(stockData, stocksList);
@@ -23,7 +22,8 @@ public class StockHandling {
         this.nextTransactionID = 23;
     }
 
-    public StockHandling() {}
+    public StockHandling() {
+    }
 
     public void makeStocks(ArrayList<String[]> stockData, ArrayList<Stock> stocksList) {
         for (String[] strings : stockData) {
@@ -204,7 +204,7 @@ public class StockHandling {
         int currentShares = 0;
 
         boolean validTicker = false;
-        while(!validTicker) {
+        while (!validTicker) {
             ticker = UserLogin.sc.askQuestion("Indtast ticker på den aktie du vil sælge");
 
             if (ticker == null) {

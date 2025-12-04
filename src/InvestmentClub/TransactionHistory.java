@@ -2,8 +2,6 @@ package InvestmentClub;
 
 import Entities.Transaction;
 
-import static InvestmentClub.UIHelper.*;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -43,7 +41,7 @@ public class TransactionHistory {
         }
     }
 
-//  printer transactions ud for medlem logget ind
+    //  printer transactions ud for medlem logget ind
     public void displayTransactionHistory() {
         UIHelper.printHeader("DIN TRANSAKTIONSHISTORIK");
         System.out.printf("│ %-13s │ %-12s │ %-8s │ %-10s │ %-7s │ %-12s │%n",

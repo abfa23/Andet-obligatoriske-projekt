@@ -19,13 +19,14 @@ public class InputHandler {
             return false;
         }
     }
+
     //tjekker om Double nummer er brugt.
     public static boolean ValidateInputIsDouble(String num) {
         try {
             Double.parseDouble(num);
             return true;
         } catch (NumberFormatException e) {
-            return  false;
+            return false;
         }
     }
 

@@ -1,11 +1,9 @@
 package InvestmentClub;
 
-import Entities.User;
 import Entities.Stock;
+import Entities.User;
 
 import java.util.Locale;
-
-import static InvestmentClub.StockHandling.*;
 
 public class UIHelper {
     private static final String DOUBLE_LINE = "═════════════════════════════════════════════════════════════════════════════════";
@@ -31,7 +29,7 @@ public class UIHelper {
     }
 
     public static void displayUserMenu(User currentUser) {
-       System.out.println("""
+        System.out.println("""
                 ═════════════════════════════════════════════════════════════════════════════════
                                                 BRUGER MENU\s
                 ═════════════════════════════════════════════════════════════════════════════════""");

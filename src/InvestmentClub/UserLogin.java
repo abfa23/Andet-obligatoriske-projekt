@@ -1,20 +1,19 @@
 package InvestmentClub;
 
+import Entities.Admin;
+import Entities.User;
 import Menu.AdminMenu;
 import Menu.UserMenu;
-import Entities.User;
-import Entities.Admin;
+
 import java.util.ArrayList;
 
 public class UserLogin {
+    public static ScannerHelper sc = new ScannerHelper();
     //ved succesfuld login gemmer user objekter og id af personen logget ind
     private static User currentUser;
     private static int currentUserID;
-
     //arraylist af users, lavet ud fra reader string arraylist i makeUsers
     public ArrayList<User> users = new ArrayList<>();
-
-    public static ScannerHelper sc = new ScannerHelper();
 
     //constructor der modtager reader string arraylist
     public UserLogin(ArrayList<String[]> data) {
@@ -49,7 +48,7 @@ public class UserLogin {
     public void login() {
         boolean isDone = false;
 
-        while(true) {
+        while (true) {
             UIHelper.displayLoginMenu();
             int choiceInput = sc.askNumber(3);
             System.out.println();

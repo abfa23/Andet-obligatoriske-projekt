@@ -9,9 +9,8 @@ import java.util.*;
 
 public class PortfolioHandling {
     public ArrayList<Portfolio> portfolioList = new ArrayList<>();
-
-    private ArrayList<User> users;
     public ArrayList<Transaction> transactions;
+    private ArrayList<User> users;
     private ArrayList<Stock> stocksList;
 
     public PortfolioHandling(ArrayList<User> users, ArrayList<Transaction> transactions, ArrayList<Stock> stocksList) {
