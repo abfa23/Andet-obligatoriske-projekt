@@ -46,31 +46,9 @@ public class StockHandling {
         }
     }
 
-    public static void displayStockMarket() {
-        System.out.println();
-        System.out.println("""
-                ════════════════════════════════════════════════════════════════════════════════════════════
-                                                         AKTIEMARKED\s
-                ════════════════════════════════════════════════════════════════════════════════════════════""");
-        System.out.printf("│ %-25s │ %-10s │ %-14s │ %-20s │ %-7s │%n",
-                "Aktie Navn", "Ticker", "Pris", "Sektor", "Rating");
-        System.out.println("├───────────────────────────┼────────────┼────────────────┼──────────────────────┼─────────┤");
-
-        for (Stock s : stocksList) {
-            System.out.printf(Locale.GERMANY, "│ %-25s │ %-10s │ %,10.2f %-3s │ %-20s │ %-7s │%n",
-                    s.getName().length() > 25 ? s.getName().substring(0, 22) + "..." : s.getName(),
-                    s.getTicker(),
-                    s.getPrice(),
-                    s.getCurrency(),
-                    s.getSector(),
-                    s.getRating());
-        }
-        System.out.println("════════════════════════════════════════════════════════════════════════════════════════════\n\n");
-    }
-
     public String currentDate() {
         LocalDate localDate = LocalDate.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         return localDate.format(format);
     }
@@ -91,8 +69,7 @@ public class StockHandling {
 //                ═════════════════════════════════════════════════════════════════════════════════""");
 
         UIHelper.printBuyHeader();
-
-        displayStockMarket();
+        UIHelper.displayStockMarket();
 
         Stock selectedStock = null;
 
@@ -134,17 +111,16 @@ public class StockHandling {
             return;
         }
 
-        Stock name = selectedStock.getName();
         double totalPrice = selectedStock.getPrice() * shares;
-        double currentBalance = selectedStock.;
 
-        UIHelper.printBuySummary(name, shares, totalPrice, currentBalance);
+        UIHelper.printBuySummary(selectedStock, shares, totalPrice, p.getBalance());
 
-        System.out.println("Total pris: " + totalPrice + " " + selectedStock.getCurrency());
+//        System.out.println("Total pris: " + totalPrice + " " + selectedStock.getCurrency());
 
         if (!InputHandler.validateEnoughCash(p, totalPrice)) {
             System.out.println("Fejl: Du har ikke nok penge til at købe " + shares + " aktier.");
             System.out.println("Din kontantbeholdning: " + p.getBalance() + " DKK");
+            System.out.println("Mangler: " + (totalPrice - p.getBalance()));
             return;
         }
 

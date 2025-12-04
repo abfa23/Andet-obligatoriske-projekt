@@ -36,7 +36,7 @@ public class UserMenu {
 
             switch (userChoice) {
                 case 1:
-                    stockHandling.displayStockMarket();
+                    UIHelper.displayStockMarket();
                     UIHelper.waitForEnter();
                     break;
                 case 2:
@@ -55,7 +55,7 @@ public class UserMenu {
                     //opdaterer, hvis ændringer lavet
                     ReadTransactions readTransAgain = new ReadTransactions();
                     transactionHistory = new TransactionHistory(readTransAgain.reader());
-                    transactionHistory.printTransactionHistory();
+                    UIHelper.printTransactionHistory(transactionHistory.transactions);
                     UIHelper.waitForEnter();
                     break;
                 case 6:
