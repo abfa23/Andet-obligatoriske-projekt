@@ -48,7 +48,7 @@ public class StockHandling {
 
     public String currentDate() {
         LocalDate localDate = LocalDate.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
         return localDate.format(format);
     }
