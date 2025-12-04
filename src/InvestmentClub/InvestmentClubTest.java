@@ -11,7 +11,6 @@ public class InvestmentClubTest {
     public static void main(String[] args) {
         InvestmentClubTest ict = new InvestmentClubTest();
         UserLogin uh = new UserLogin(ict.users);
-
         uh.login();
     }
 }

@@ -53,7 +53,7 @@ public class StockHandling {
 //                                                   KØB AKTIER\s
 //                ═════════════════════════════════════════════════════════════════════════════════""");
 
-        UIHelper.printBuyHeader();
+
         UIHelper.displayStockMarket();
 
         Stock selectedStock = null;

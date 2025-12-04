@@ -42,31 +42,24 @@ public class TransactionHistory {
         }
     }
 
-    //UIHelper.printTransactionHistory(transactions);
+//  printer transactions ud for medlem logget ind
+    public void displayTransactionHistory() {
+        UIHelper.printHeader("DIN TRANSAKTIONSHISTORIK");
+        System.out.printf("%-7s %-9s %-8s %-10s %-7s %-10s%n", "TICKER", "PRIS", "VALUTA", "KØB/SALG", "ANTAL", "DATO");
+        UIHelper.printSingleLine();
 
-
-//    //printer transactions ud for medlem logget ind
-//    public void printTransactionHistory() {
-//
-//        System.out.println("\n════════════════════════════════════════════════════════════");
-//        System.out.println("                  DIN TRANSAKTIONSHISTORIK                  ");
-//        System.out.println("════════════════════════════════════════════════════════════\n");
-//        System.out.printf("%-7s %-9s %-8s %-10s %-7s %-10s%n", "TICKER", "PRIS", "VALUTA", "KØB/SALG", "ANTAL", "DATO");
-//        System.out.println("────────────────────────────────────────────────────────────");
-//
-//        for (Transaction t : transactions) {
-//
-//            if (t.getUserID() == getCurrentUserID()) {
-//                System.out.printf("%-7s %-,9.2f %-8s %-10s %-7d %s%n",
-//                        t.getTicker(),
-//                        t.getPrice(),
-//                        t.getCurrency(),
-//                        t.getOrderType(),
-//                        t.getBoughtShares(),
-//                        t.getDate());
-//            }
-//        }
-//        System.out.println("\n\n");
-//    }
+        for (Transaction t : transactions) {
+            if (t.getUserID() == getCurrentUserID()) {
+                System.out.printf("%-7s %-,9.2f %-8s %-10s %-7d %s%n",
+                        t.getTicker(),
+                        t.getPrice(),
+                        t.getCurrency(),
+                        t.getOrderType(),
+                        t.getBoughtShares(),
+                        t.getDate());
+            }
+        }
+        UIHelper.printDoubleLine();
+    }
 }
 

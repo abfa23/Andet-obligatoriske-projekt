@@ -45,7 +45,7 @@ public class UserMenu {
             //UserInterface();
             UIHelper.displayUserMenu(UserLogin.getCurrentUser());
             int userChoice = sh.askNumber(7);
-            UIHelper.printBlankLine();
+            System.out.println();
 
             switch (userChoice) {
                 case 1:
@@ -68,7 +68,7 @@ public class UserMenu {
                     //opdaterer, hvis ændringer lavet
                     ReadTransactions readTransAgain = new ReadTransactions();
                     transactionHistory = new TransactionHistory(readTransAgain.reader());
-                    UIHelper.printTransactionHistory(transactionHistory.transactions);
+                    transactionHistory.displayTransactionHistory();
                     UIHelper.waitForEnter();
                     break;
                 case 6:

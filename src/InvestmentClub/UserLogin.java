@@ -47,27 +47,12 @@ public class UserLogin {
 
     //valg af slags login
     public void login() {
-//        System.out.println();
-//        System.out.println("""
-//                ═════════════════════════════════════════════════════════════════════════════════
-//                                      VELKOMMEN TIL INVESTERINGSKLUBBEN!\s
-//                ═════════════════════════════════════════════════════════════════════════════════
-//                │                                                                               │
-//                │  [1] 👤  Log ind som bruger                                                   │
-//                │                                                                               │
-//                │  [2] 🔐  Log ind som admin                                                    │
-//                │                                                                               │
-//                │  [3] ❌  Luk programmet                                                       │
-//                │                                                                               │
-//                ═════════════════════════════════════════════════════════════════════════════════
-//                """);
-//        System.out.print("Vælg venligst en mulighed (1-3): ");
         boolean isDone = false;
 
         while(!isDone) {
             UIHelper.displayLoginMenu();
             int choiceInput = sc.askNumber(3);
-            UIHelper.printBlankLine();
+            System.out.println();
 
             //viderestiller baseret på input til login menu.
             switch (choiceInput) {

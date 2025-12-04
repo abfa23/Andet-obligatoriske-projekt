@@ -44,7 +44,7 @@ public class AdminMenu {
         while (!isDone) {
             UIHelper.displayAdminMenu();
             int userChoice = sh.askNumber(5);
-            UIHelper.printBlankLine();
+            System.out.println();
 
             switch (userChoice) {
                 case 1:

@@ -73,10 +73,11 @@ public class PortfolioHandling {
         ArrayList<Portfolio> sortedPortfolios = new ArrayList<>(portfolioList);
         Collections.sort(sortedPortfolios);
 
-        System.out.println("""
-                ═══════════════════════════════════════════════════════════════════════════════════
-                                           RANGLISTE - SAMLET FORMUE\s
-                ═══════════════════════════════════════════════════════════════════════════════════""");
+        UIHelper.printHeader("RANGLISTE - SAMLET FORMUE");
+//        System.out.println("""
+//                ═══════════════════════════════════════════════════════════════════════════════════
+//                                           RANGLISTE - SAMLET FORMUE\s
+//                ═══════════════════════════════════════════════════════════════════════════════════""");
 
         System.out.printf("│ %-6s │ %-35s │ %-32s │%n", "Rang", "Navn", "Formue");
         System.out.println("├────────┼─────────────────────────────────────┼──────────────────────────────────┤");
@@ -88,7 +89,7 @@ public class PortfolioHandling {
             System.out.printf(Locale.GERMANY, "│ %-6d │ %-35s │ %,28.2f DKK │%n",
                     rank++, u.getFullName(), p.getTotalValue());
         }
-        System.out.println("═══════════════════════════════════════════════════════════════════════════════════\n\n");
+        UIHelper.printDoubleLine();
     }
 
 
@@ -107,19 +108,21 @@ public class PortfolioHandling {
                     "linje 60 - PortfolioHandling");
         }
 
-        System.out.println("""
-            ═════════════════════════════════════════════════════════════════════════════════
-                                          DETTE ER DIT PORTEFØLJE\s
-            ═════════════════════════════════════════════════════════════════════════════════""");
+        UIHelper.printHeader("DETTE ER DIT PORTEFØLJE");
+//        System.out.println("""
+//            ═════════════════════════════════════════════════════════════════════════════════
+//                                          DETTE ER DIT PORTEFØLJE\s
+//            ═════════════════════════════════════════════════════════════════════════════════""");
 
         System.out.printf(Locale.GERMANY, "│ Kontantbeholdning: %,15.2f DKK %38s │%n", userPortfolio.getBalance(), "");
         System.out.printf(Locale.GERMANY, "│ Samlet Formue:     %,15.2f DKK %38s │%n", userPortfolio.getTotalValue(), "");
-        System.out.println("─────────────────────────────────────────────────────────────────────────────────");
+        UIHelper.printSingleLine();
 
         HashMap<String, Integer> holdings = userPortfolio.getHoldings();
         if (holdings.isEmpty()) {
             System.out.println("│ Du har ingen aktier i din portefølje                                           │");
-            System.out.println("═══════════════════════════════════════════════════════════════════════════════\n\n");
+            UIHelper.printDoubleLine();
+            System.out.println();
             return;
         }
 
@@ -140,27 +143,30 @@ public class PortfolioHandling {
             System.out.printf(Locale.GERMANY, "│ %-10s │ %,10d │ %,11.2f %-3s │ %,11.2f %-3s │ %,14.2f%% │%n",
                     ticker, shares, stockPrice, currency, stockValueTotal, currency, dividendYield);
         }
-        System.out.println("═════════════════════════════════════════════════════════════════════════════════\n\n");
+        UIHelper.printDoubleLine();
+        System.out.println();
     }
 
     public void displayPortfolioAdmin() {
-        System.out.println(
-                """
-                        ═════════════════════════════════════════════════════════════════════════════════
-                                              SAMLET PORTEFØLJER FOR ALLE MEDLEMMER\s
-                        ═════════════════════════════════════════════════════════════════════════════════""");
+        UIHelper.printHeader("SAMLET PORTEFØLJER FOR ALLE MEDLEMMER");
+//        System.out.println(
+//                """
+//                        ═════════════════════════════════════════════════════════════════════════════════
+//                                              SAMLET PORTEFØLJER FOR ALLE MEDLEMMER\s
+//                        ═════════════════════════════════════════════════════════════════════════════════""");
         System.out.println();
 
         for (Portfolio p : portfolioList) {
             User u = findUser(p.getUserID());
 
-            System.out.println("─────────────────────────────────────────────────────────────────────────────────");
+            UIHelper.printSingleLine();
             System.out.printf(Locale.GERMANY, "│ BrugerID: %-3d │ Navn: %-27s │ Kontant: %,12.2f DKK │%n",
                     p.getUserID(), u.getFullName(), p.getBalance());
             System.out.printf(Locale.GERMANY, "│ Formue: %,12.2f DKK %52s │ %n", p.getTotalValue(), "");
-            System.out.println("─────────────────────────────────────────────────────────────────────────────────");
+            UIHelper.printSingleLine();
 
             HashMap<String, Integer> holdings = p.getHoldings();
+
             if (holdings.isEmpty()) {
                 System.out.println("│ Ingen aktier i portefølje                                                            │");
             } else {
@@ -182,7 +188,7 @@ public class PortfolioHandling {
                             ticker, shares, stockPrice, currency, stockValueTotal, currency, dividendYield);
                 }
             }
-            System.out.println("─────────────────────────────────────────────────────────────────────────────────\n");
+            UIHelper.printSingleLine();
         }
         System.out.println();
     }
@@ -191,10 +197,11 @@ public class PortfolioHandling {
         HashMap<String, Integer> stock = new HashMap<>();
         HashMap<String, Integer> sector = new HashMap<>();
 
-        System.out.println("""
-                ═════════════════════════════════════════════════════════════════════════════════
-                                       AKTIESTATISTIK - SEKTORER OG AKTIER
-                ═════════════════════════════════════════════════════════════════════════════════""");
+        UIHelper.printHeader("AKTIESTATISTIK - SEKTORER OG AKTIER");
+//        System.out.println("""
+//                ═════════════════════════════════════════════════════════════════════════════════
+//                                       AKTIESTATISTIK - SEKTORER OG AKTIER
+//                ═════════════════════════════════════════════════════════════════════════════════""");
 
         for (Portfolio p : portfolioList) {
             HashMap<String, Integer> holdings = p.getHoldings();
@@ -235,7 +242,7 @@ public class PortfolioHandling {
             System.out.printf(Locale.GERMANY, "│ %-45s │ %,29d │%n", e.getKey(), e.getValue());
         }
 
-        System.out.println("═════════════════════════════════════════════════════════════════════════════════\n\n");
+        UIHelper.printDoubleLine();
     }
 
 
