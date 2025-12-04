@@ -18,8 +18,13 @@ public class Portfolio implements Comparable<Portfolio> {
     public int getUserID() {
         return userID;
     }
+
     public double getBalance() {
         return balance;
+    }
+
+    public void setBalance(double input) {
+        this.balance = input;
     }
 
     public HashMap<String, Integer> getHoldings() {
@@ -28,10 +33,6 @@ public class Portfolio implements Comparable<Portfolio> {
 
     public double getTotalValue() {
         return totalValue;
-    }
-
-    public void setBalance(double input) {
-        this.balance = input;
     }
 
     public void setTotalValue(double totalValue) {
@@ -46,7 +47,7 @@ public class Portfolio implements Comparable<Portfolio> {
         int currentHolding = holdings.getOrDefault(ticker, 0);
         if (currentHolding - boughtShares <= 0) {
             holdings.remove(ticker);
-            } else {
+        } else {
             holdings.put(ticker, currentHolding - boughtShares);
         }
     }

@@ -2,7 +2,9 @@ package Entities;
 
 import java.util.Comparator;
 
-public class Stock /*implements Comparable<Stock>*/ {
+public class Stock {
+    public static Comparator<Stock> AlphabeticalByName =
+            Comparator.comparing(Stock::getName, String.CASE_INSENSITIVE_ORDER);
     private double price;
     private String name;
     private String ticker;
@@ -12,6 +14,7 @@ public class Stock /*implements Comparable<Stock>*/ {
     private double dividendYield;
     private String market;
     private String lastUpdated;
+
 
     public Stock(double price, String ticker, String name, String sector, String currency, String rating, double dividendYield, String market, String lastUpdated) {
         this.price = price;
@@ -25,7 +28,6 @@ public class Stock /*implements Comparable<Stock>*/ {
         this.lastUpdated = lastUpdated;
     }
 
-
     public double getPrice() {
         return price;
     }
@@ -34,27 +36,36 @@ public class Stock /*implements Comparable<Stock>*/ {
         return ticker;
     }
 
-    public String getSector() { return sector; }
+    public String getSector() {
+        return sector;
+    }
 
     public String getName() {
         return name;
     }
 
-    public String getCurrency() { return currency;}
+    public String getCurrency() {
+        return currency;
+    }
 
-    public String getRating() { return rating;}
+    public String getRating() {
+        return rating;
+    }
 
-    public double getDividendYield() { return dividendYield; }
+    public double getDividendYield() {
+        return dividendYield;
+    }
 
-    public String getMarket() { return market; }
+    public String getMarket() {
+        return market;
+    }
 
-    public String getLastUpdated() { return lastUpdated; }
-
-    public static Comparator<Stock> AlphabeticalByName =
-            Comparator.comparing(Stock::getName, String.CASE_INSENSITIVE_ORDER);
+    public String getLastUpdated() {
+        return lastUpdated;
+    }
 
     @Override
     public String toString() {
-        return "Ticker: " + ticker + " | Aktie: " + name +  " | Pris: " + price + " " + currency + " | Sektorer: " + sector + " | Marked: " + market + " | Aktierating: " + rating;
+        return "Ticker: " + ticker + " | Aktie: " + name + " | Pris: " + price + " " + currency + " | Sektorer: " + sector + " | Marked: " + market + " | Aktierating: " + rating;
     }
 }

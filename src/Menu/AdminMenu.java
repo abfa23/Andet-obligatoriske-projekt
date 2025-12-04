@@ -21,8 +21,7 @@ public class AdminMenu {
     PortfolioHandling ph;
 
     public AdminMenu() {
-        ph = new PortfolioHandling(userLogin.users,
-                transactionHistory.transactions, stockHandling.stocksList);
+        ph = new PortfolioHandling(userLogin.users, transactionHistory.transactions, stockHandling.stocksList);
         ph.calculatePortfolio();
 
         stockHandling.nextTransactionID = getNextTransactionID();
@@ -43,7 +42,6 @@ public class AdminMenu {
         boolean isDone = false;
 
         while (!isDone) {
-//            adminInterface();
             UIHelper.displayAdminMenu();
             int userChoice = sh.askNumber(5);
             UIHelper.printBlankLine();
@@ -63,37 +61,15 @@ public class AdminMenu {
                     break;
                 case 4:
                     userLogin.logout();
-                    isDone =  true;
+                    isDone = true;
                     break;
 
                 case 5:
-                    System.out.println("lukker ned...");
+                    System.out.println("Lukker ned...");
                     System.exit(0);
                     break;
             }
         }
     }
-
-//    public void adminInterface() {
-//        System.out.println();
-//        System.out.println("""
-//                ═════════════════════════════════════════════════════════════════════════════════
-//                                                   ADMIN MENU\s
-//                ═════════════════════════════════════════════════════════════════════════════════
-//                │                                                                               │
-//                │  [1] 📊  Se oversigt over alle brugeres porteføljer                           │
-//                │                                                                               │
-//                │  [2] 🏆  Vis rangliste over brugere                                           │
-//                │                                                                               │
-//                │  [3] 📈  Se fordeling på aktier og sektorer                                   │
-//                │                                                                               │
-//                │  [4] 🚪  Log ud                                                               │
-//                │                                                                               │
-//                │  [5] ❌  Luk programmet                                                       │
-//                │                                                                               │
-//                ═════════════════════════════════════════════════════════════════════════════════
-//                """);
-//        System.out.print("Vælg venligst en mulighed (1-5): ");
-//    }
 }
 

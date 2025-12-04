@@ -1,7 +1,7 @@
 package FileHandler;
 
-import InvestmentClub.StockHandling;
 import Entities.Transaction;
+import InvestmentClub.StockHandling;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

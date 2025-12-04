@@ -28,7 +28,7 @@ public class ReadTransactions implements CSVReader {
     }
 
     @Override
-    public String[] format (String s) {
+    public String[] format(String s) {
         return s.split(";");
     }
 }
