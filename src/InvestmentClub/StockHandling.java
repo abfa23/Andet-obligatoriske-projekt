@@ -3,6 +3,8 @@ package InvestmentClub;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import FileHandler.ReadTransactions;
 import FileHandler.WriteTransactions;
 import Entities.Portfolio;
@@ -47,14 +49,23 @@ public class StockHandling {
         return localDate.format(format);
     }
 
+    public void displayStockMarket() {
+        UIHelper.printStockMarket();
+
+        for (Stock s : stocksList) {
+            System.out.printf(Locale.GERMANY, "│ %-25s │ %-10s │ %,10.2f %-3s │ %-20s │ %-7s │%n",
+                    s.getName().length() > 25 ? s.getName().substring(0, 22) + "..." : s.getName(),
+                    s.getTicker(),
+                    s.getPrice(),
+                    s.getCurrency(),
+                    s.getSector(),
+                    s.getRating());
+        }
+        UIHelper.printDoubleLine();
+    }
+
     public void buyStock(User currentUser, PortfolioHandling portfolioHandling) {
-//        System.out.println("""
-//                ═════════════════════════════════════════════════════════════════════════════════
-//                                                   KØB AKTIER\s
-//                ═════════════════════════════════════════════════════════════════════════════════""");
-
-
-        UIHelper.displayStockMarket();
+        displayStockMarket();
 
         Stock selectedStock = null;
 
@@ -66,7 +77,6 @@ public class StockHandling {
                 System.out.println("Fejl med aktien: '" + ticker + "' findes ikke.");
             }
         }
-
 
         String sharesInput = UserLogin.sc.askQuestion("Hvor mange aktier vil du købe?");
 
@@ -80,7 +90,6 @@ public class StockHandling {
         if (shares <= 0) {
             System.out.println("Fejl: Du skal købe mindst 1 aktie.");
             return;
-
         }
 
         Portfolio p = null;

@@ -84,8 +84,8 @@ public class UserLogin {
             //tjekker hvis emailen indtastet matcher en i users og kommer videre, hvis der er
             for (User s : users) {
                 if (s.getEmail().equalsIgnoreCase(emailInput)) {
-                    this.currentUser = s;
-                    this.currentUserID = s.getUserID();
+                    currentUser = s;
+                    currentUserID = s.getUserID();
                     loggedIn = true;
                     break;
                 }
@@ -97,7 +97,6 @@ public class UserLogin {
         }
 
         um.UserMainMenu();
-//        logout();
     }
 
     //admin login
@@ -128,7 +127,6 @@ public class UserLogin {
             }
         }
         am.AdminMainMenu();
-//        logout();
     }
 
     public void logout() {

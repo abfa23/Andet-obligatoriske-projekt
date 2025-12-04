@@ -42,14 +42,13 @@ public class UserMenu {
         boolean isDone = false;
 
         while (!isDone) {
-            //UserInterface();
             UIHelper.displayUserMenu(UserLogin.getCurrentUser());
             int userChoice = sh.askNumber(7);
             System.out.println();
 
             switch (userChoice) {
                 case 1:
-                    UIHelper.displayStockMarket();
+                    stockHandling.displayStockMarket();
                     UIHelper.waitForEnter();
                     break;
                 case 2:
