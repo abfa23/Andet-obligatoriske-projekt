@@ -49,7 +49,7 @@ public class UserLogin {
     public void login() {
         boolean isDone = false;
 
-        while(!isDone) {
+        while(true) {
             UIHelper.displayLoginMenu();
             int choiceInput = sc.askNumber(3);
             System.out.println();
@@ -121,7 +121,7 @@ public class UserLogin {
             //tjekker om password er admin password
             if (passwordInput.equals(a.getPassword())) {
                 loggedIn = true;
-                System.out.println("\n✅ Logged ind som admin");
+                System.out.println("\nLogget ind som admin");
             } else {
                 System.out.println("Password matcher ikke databasen. Forsøg igen!");
             }
@@ -132,8 +132,8 @@ public class UserLogin {
     public void logout() {
         System.out.println("logger ud...");
 
-        this.currentUser = null;
-        this.currentUserID = 0;
+        currentUser = null;
+        currentUserID = 0;
 
         System.out.println("Du er nu logget ud.");
     }

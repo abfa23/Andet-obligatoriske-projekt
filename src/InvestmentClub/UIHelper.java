@@ -99,15 +99,15 @@ public class UIHelper {
 
     public static void printBuySummary(Stock stock, int shares, double totalPrice, double currentBalance) {
         System.out.println("\n┌─────────────────────── KØB OPSUMMERING ───────────────────────┐");
-        System.out.printf("│ Aktie:           %-45s │%n", stock.getName());
-        System.out.printf("│ Ticker:          %-45s │%n", stock.getTicker());
-        System.out.printf(Locale.GERMANY, "│ Antal aktier:    %-45d │%n", shares);
-        System.out.printf(Locale.GERMANY, "│ Pris pr. aktie:  %,-45.2f DKK │%n", stock.getPrice());
-        System.out.printf(Locale.GERMANY, "│ Total pris:      %,-45.2f DKK │%n", totalPrice);
-        System.out.println("├────────────────────────────────────────────────────────────────┤");
-        System.out.printf(Locale.GERMANY, "│ Nuværende saldo: %,-45.2f DKK │%n", currentBalance);
-        System.out.printf(Locale.GERMANY, "│ Ny saldo:        %,-45.2f DKK │%n", (currentBalance - totalPrice));
-        System.out.println("└────────────────────────────────────────────────────────────────┘\n");
+        System.out.printf("│ Aktie:           %-44s │%n", stock.getName());
+        System.out.printf("│ Ticker:          %-44s │%n", stock.getTicker());
+        System.out.printf(Locale.GERMANY, "│ Antal aktier:    %-44d │%n", shares);
+        System.out.printf(Locale.GERMANY, "│ Pris pr. aktie:  %,-40.2f DKK │%n", stock.getPrice());
+        System.out.printf(Locale.GERMANY, "│ Total pris:      %,-40.2f DKK │%n", totalPrice);
+        System.out.println("├───────────────────────────────────────────────────────────────┤");
+        System.out.printf(Locale.GERMANY, "│ Nuværende saldo: %,-40.2f DKK │%n", currentBalance);
+        System.out.printf(Locale.GERMANY, "│ Ny saldo:        %,-40.2f DKK │%n", (currentBalance - totalPrice));
+        System.out.println("└───────────────────────────────────────────────────────────────┘\n");
     }
 
     public static void printSellSummary(Stock stock, int shares, double totalPrice, double currentBalance) {
@@ -115,11 +115,11 @@ public class UIHelper {
         System.out.printf("│ Aktie:           %-45s │%n", stock.getName());
         System.out.printf("│ Ticker:          %-45s │%n", stock.getTicker());
         System.out.printf(Locale.GERMANY, "│ Antal aktier:    %-45d │%n", shares);
-        System.out.printf(Locale.GERMANY, "│ Pris pr. aktie:  %,-45.2f DKK │%n", stock.getPrice());
-        System.out.printf(Locale.GERMANY, "│ Total salgspris: %,-45.2f DKK │%n", totalPrice);
+        System.out.printf(Locale.GERMANY, "│ Pris pr. aktie:  %,-41.2f DKK │%n", stock.getPrice());
+        System.out.printf(Locale.GERMANY, "│ Total salgspris: %,-41.2f DKK │%n", totalPrice);
         System.out.println("├────────────────────────────────────────────────────────────────┤");
-        System.out.printf(Locale.GERMANY, "│ Nuværende saldo: %,-45.2f DKK │%n", currentBalance);
-        System.out.printf(Locale.GERMANY, "│ Ny saldo:        %,-45.2f DKK │%n", (currentBalance + totalPrice));
+        System.out.printf(Locale.GERMANY, "│ Nuværende saldo: %,-41.2f DKK │%n", currentBalance);
+        System.out.printf(Locale.GERMANY, "│ Ny saldo:        %,-41.2f DKK │%n", (currentBalance + totalPrice));
         System.out.println("└────────────────────────────────────────────────────────────────┘\n");
     }
 

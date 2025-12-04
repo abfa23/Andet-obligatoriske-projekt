@@ -74,19 +74,15 @@ public class PortfolioHandling {
         Collections.sort(sortedPortfolios);
 
         UIHelper.printHeader("RANGLISTE - SAMLET FORMUE");
-//        System.out.println("""
-//                ═══════════════════════════════════════════════════════════════════════════════════
-//                                           RANGLISTE - SAMLET FORMUE\s
-//                ═══════════════════════════════════════════════════════════════════════════════════""");
 
-        System.out.printf("│ %-6s │ %-35s │ %-32s │%n", "Rang", "Navn", "Formue");
-        System.out.println("├────────┼─────────────────────────────────────┼──────────────────────────────────┤");
+        System.out.printf("│ %-6s │ %-34s │ %-31s │%n", "Rang", "Navn", "Formue");
+        System.out.println("├────────┼────────────────────────────────────┼─────────────────────────────────┤");
 
         int rank = 1;
         for (Portfolio p : sortedPortfolios) {
             User u = findUser(p.getUserID());
 
-            System.out.printf(Locale.GERMANY, "│ %-6d │ %-35s │ %,28.2f DKK │%n",
+            System.out.printf(Locale.GERMANY, "│ %-6d │ %-34s │ %,27.2f DKK │%n",
                     rank++, u.getFullName(), p.getTotalValue());
         }
         UIHelper.printDoubleLine();
@@ -108,12 +104,7 @@ public class PortfolioHandling {
                     "linje 60 - PortfolioHandling");
         }
 
-        UIHelper.printHeader("DETTE ER DIT PORTEFØLJE");
-//        System.out.println("""
-//            ═════════════════════════════════════════════════════════════════════════════════
-//                                          DETTE ER DIT PORTEFØLJE\s
-//            ═════════════════════════════════════════════════════════════════════════════════""");
-
+        UIHelper.printHeader("DIT PORTEFØLJE");
         System.out.printf(Locale.GERMANY, "│ Kontantbeholdning: %,15.2f DKK %38s │%n", userPortfolio.getBalance(), "");
         System.out.printf(Locale.GERMANY, "│ Samlet Formue:     %,15.2f DKK %38s │%n", userPortfolio.getTotalValue(), "");
         UIHelper.printSingleLine();
@@ -149,12 +140,6 @@ public class PortfolioHandling {
 
     public void displayPortfolioAdmin() {
         UIHelper.printHeader("SAMLET PORTEFØLJER FOR ALLE MEDLEMMER");
-//        System.out.println(
-//                """
-//                        ═════════════════════════════════════════════════════════════════════════════════
-//                                              SAMLET PORTEFØLJER FOR ALLE MEDLEMMER\s
-//                        ═════════════════════════════════════════════════════════════════════════════════""");
-        System.out.println();
 
         for (Portfolio p : portfolioList) {
             User u = findUser(p.getUserID());
@@ -198,10 +183,6 @@ public class PortfolioHandling {
         HashMap<String, Integer> sector = new HashMap<>();
 
         UIHelper.printHeader("AKTIESTATISTIK - SEKTORER OG AKTIER");
-//        System.out.println("""
-//                ═════════════════════════════════════════════════════════════════════════════════
-//                                       AKTIESTATISTIK - SEKTORER OG AKTIER
-//                ═════════════════════════════════════════════════════════════════════════════════""");
 
         for (Portfolio p : portfolioList) {
             HashMap<String, Integer> holdings = p.getHoldings();

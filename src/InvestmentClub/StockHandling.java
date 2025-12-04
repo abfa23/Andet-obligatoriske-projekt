@@ -61,7 +61,7 @@ public class StockHandling {
                     s.getSector(),
                     s.getRating());
         }
-        UIHelper.printDoubleLine();
+        System.out.println("════════════════════════════════════════════════════════════════════════════════════════════\n");
     }
 
     public void buyStock(User currentUser, PortfolioHandling portfolioHandling) {
@@ -70,26 +70,38 @@ public class StockHandling {
         Stock selectedStock = null;
 
         while (selectedStock == null) {
-            String ticker = UserLogin.sc.askQuestion("Indtast ticker på den aktie du vil købe.");
-            selectedStock = portfolioHandling.findStock(ticker);
+            String ticker = UserLogin.sc.askQuestion("Indtast ticker på den aktie du vil købe");
+
+            selectedStock = portfolioHandling.findStock(ticker.trim().toUpperCase());
 
             if (selectedStock == null) {
-                System.out.println("Fejl med aktien: '" + ticker + "' findes ikke.");
+                System.out.println("Fejl med aktien: '" + ticker + "' findes ikke");
             }
         }
 
-        String sharesInput = UserLogin.sc.askQuestion("Hvor mange aktier vil du købe?");
+        int shares = 0;
+        boolean isValid = false;
 
-        if (!InputHandler.ValidateInputIsInt(sharesInput)) {
-            System.out.println("Fejl: Du skal indtaste et heltal.");
-            return;
-        }
+        while (!isValid) {
+            String sharesInput = UserLogin.sc.askQuestion("Hvor mange aktier vil du købe?");
 
-        int shares = Integer.parseInt(sharesInput);
+            if (sharesInput == null) {
+                System.out.println("Fejl: Feltet må ikke være tomt");
+                continue;
+            }
 
-        if (shares <= 0) {
-            System.out.println("Fejl: Du skal købe mindst 1 aktie.");
-            return;
+            if (!InputHandler.ValidateInputIsInt(sharesInput)) {
+                System.out.println("Fejl: Du skal indtaste et tal");
+                continue;
+            }
+
+            shares = Integer.parseInt(sharesInput);
+
+            if (shares <= 0) {
+                System.out.println("Fejl: Du skal købe mindst 1 aktie");
+                continue;
+            }
+            isValid = true;
         }
 
         Portfolio p = null;
@@ -109,8 +121,6 @@ public class StockHandling {
 
         UIHelper.printBuySummary(selectedStock, shares, totalPrice, p.getBalance());
 
-//        System.out.println("Total pris: " + totalPrice + " " + selectedStock.getCurrency());
-
         if (!InputHandler.validateEnoughCash(p, totalPrice)) {
             System.out.println("Fejl: Du har ikke nok penge til at købe " + shares + " aktier.");
             System.out.println("Din kontantbeholdning: " + p.getBalance() + " DKK");
@@ -118,13 +128,38 @@ public class StockHandling {
             return;
         }
 
-        String confirmation = UserLogin.sc.askQuestion("Vil du bekræfte købet? (ja/nej)");
-        if (!confirmation.equalsIgnoreCase("Ja")) {
-            System.out.println("Køb annulleret");
-            return;
+        boolean validConfirmation = false;
+        while (!validConfirmation) {
+            String confirmation = UserLogin.sc.askQuestion("Vil du bekræfte købet? (ja/nej)");
+
+            if (confirmation == null) {
+                System.out.println("Fejl: Du skal indtaste ja eller nej");
+                continue;
+            }
+
+            confirmation = confirmation.trim();
+
+            if (confirmation.equalsIgnoreCase("ja")) {
+                validConfirmation = true;
+            } else if (confirmation.equalsIgnoreCase("nej")) {
+                System.out.println("Køb annulleret");
+                return;
+            } else {
+                System.out.println("Fejl: Ugydligt input. Indtast venligst ja eller nej");
+            }
         }
 
-        Transaction transaction = new Transaction(nextTransactionID, currentUser.getUserID(), currentDate(), selectedStock.getTicker(), selectedStock.getPrice(), selectedStock.getCurrency(), "buy", shares);
+        Transaction transaction = new Transaction(
+                nextTransactionID,
+                currentUser.getUserID(),
+                currentDate(),
+                selectedStock.getTicker(),
+                selectedStock.getPrice(),
+                selectedStock.getCurrency(),
+                "buy",
+                shares
+        );
+
         WriteTransactions writer = new WriteTransactions(transaction, this);
         writer.writer();
 
@@ -143,7 +178,6 @@ public class StockHandling {
     }
 
     public void sellStock(User currentUser, PortfolioHandling portfolioHandling) {
-        System.out.println("\n--- salg af aktier ---");
 
         Portfolio p = null;
         for (Portfolio portfolio : portfolioHandling.portfolioList) {
@@ -165,53 +199,103 @@ public class StockHandling {
             return;
         }
 
-        String ticker = UserLogin.sc.askQuestion("Indtast ticker på den aktie du vil sælge");
+        Stock selectedStock = null;
+        String ticker = "";
+        int currentShares = 0;
 
-        if (!p.getHoldings().containsKey(ticker)) {
-            System.out.println("Fejl: Du ejer ikke aktier af '" + ticker + "'.");
-            return;
+        boolean validTicker = false;
+        while(!validTicker) {
+            ticker = UserLogin.sc.askQuestion("Indtast ticker på den aktie du vil sælge");
+
+            if (ticker == null) {
+                System.out.println("Fejl: Feltet må ikke være tomt");
+                continue;
+            }
+
+            ticker = ticker.trim().toUpperCase();
+
+            if (!p.getHoldings().containsKey(ticker)) {
+                System.out.println("Fejl: Du ejer ikke aktier af '" + ticker + "'");
+                continue;
+            }
+
+            selectedStock = portfolioHandling.findStock(ticker);
+            if (selectedStock == null) {
+                System.out.println("Fejl: Aktien '" + ticker + "' findes ikke i markedet");
+                continue;
+            }
+
+            currentShares = p.getHoldings().get(ticker);
+            System.out.println("Du ejer " + currentShares + " aktier af " + ticker);
+            validTicker = true;
         }
 
-        Stock selectedStock = portfolioHandling.findStock(ticker);
-        if (selectedStock == null) {
-            System.out.println("Fejl: Aktien '" + ticker + "' findes ikke i markedet.");
-            return;
-        }
+        int shares = 0;
+        boolean validShares = false;
 
-        int currentShares = p.getHoldings().get(ticker);
-        System.out.println("Du ejer " + currentShares + " aktier af " + ticker);
+        while (!validShares) {
+            String sharesInput = UserLogin.sc.askQuestion("Hvor mange aktier vil du sælge?");
 
-        String sharesInput = UserLogin.sc.askQuestion("Hvor mange aktier vil du sælge?");
+            if (sharesInput == null) {
+                System.out.println("Fejl: Feltet må ikke være tomt");
+                continue;
+            }
 
-        if (!InputHandler.ValidateInputIsInt(sharesInput)) {
-            System.out.println("Fejl: Du skal indtaste et heltal.");
-            return;
-        }
-        int shares = Integer.parseInt(sharesInput);
+            if (!InputHandler.ValidateInputIsInt(sharesInput)) {
+                System.out.println("Fejl: Du skal indtaste et tal");
+                continue;
+            }
 
-        if (shares <= 0) {
-            System.out.println("Fejl: Du skal sælge mindst 1 aktie.");
-            return;
-        }
+            shares = Integer.parseInt(sharesInput);
 
-        if (shares > currentShares) {
-            System.out.println("Fejl: Du kan ikke sælge flere aktier end du ejer.");
-            System.out.println("Du ejer kun " + currentShares + " aktier af " + ticker);
-            return;
+            if (shares <= 0) {
+                System.out.println("Fejl: Du skal sælge mindst 1 aktie");
+                continue;
+            }
+
+            if (shares > currentShares) {
+                System.out.println("Fejl: Du kan ikke sælge flere aktier end du ejer");
+                System.out.println("Du ejer kun " + currentShares + " aktier af " + ticker);
+                continue;
+            }
+
+            validShares = true;
         }
 
         double totalPrice = selectedStock.getPrice() * shares;
 
-        System.out.println("Total salgspris: " + totalPrice + " " + selectedStock.getCurrency());
-        System.out.println("Din nuværende kontantbeholdning: " + p.getBalance() + " DKK");
+        UIHelper.printSellSummary(selectedStock, shares, totalPrice, p.getBalance());
 
-        String confirmation = UserLogin.sc.askQuestion("Vil du bekræfte salget (ja/nej)");
-        if (!confirmation.equalsIgnoreCase("Ja")) {
-            System.out.println("Salg annulleret");
-            return;
+        boolean validConfirmation = false;
+        while (!validConfirmation) {
+            String confirmation = UserLogin.sc.askQuestion("Vil du bekræfte salget (ja/nej)");
+
+            if (confirmation == null) {
+                System.out.println("Fejl: Feltet må ikke være tomt");
+                continue;
+            }
+
+            if (confirmation.equalsIgnoreCase("Ja")) {
+                validConfirmation = true;
+            } else if (confirmation.equalsIgnoreCase("Nej")) {
+                System.out.println("Salg annulleret");
+                return;
+            } else {
+                System.out.println("Fejl: Ugydligt input. Indtast venligst ja eller nej");
+            }
         }
 
-        Transaction transaction = new Transaction(nextTransactionID, currentUser.getUserID(), currentDate(), ticker, selectedStock.getPrice(), selectedStock.getCurrency(), "sell", shares);
+        Transaction transaction = new Transaction(
+                nextTransactionID,
+                currentUser.getUserID(),
+                currentDate(),
+                ticker,
+                selectedStock.getPrice(),
+                selectedStock.getCurrency(),
+                "sell",
+                shares
+        );
+
         WriteTransactions writer = new WriteTransactions(transaction, this);
         writer.writer();
 
@@ -228,5 +312,4 @@ public class StockHandling {
         System.out.println("\nSalg gennemført!");
         System.out.println("Du har solgt " + shares + " aktier af " + ticker);
     }
-
 }
