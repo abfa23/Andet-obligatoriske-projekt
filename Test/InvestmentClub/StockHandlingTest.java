@@ -6,9 +6,12 @@ import static org.junit.Assert.assertEquals;
 
 public class StockHandlingTest {
 
+    // manuel, skriv nuværende dato for at teste.
     @Test
     public void testTimeStamp() {
         StockHandling ts = new StockHandling();
-        assertEquals("27-11-2025", ts.currentDate());
+
+        //indsat dato - "dd.MM.yyyy"
+        assertEquals("04.12.2025" , ts.currentDate());
     }
 }
