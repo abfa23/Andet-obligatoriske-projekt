@@ -1,5 +1,6 @@
 package Menu;
 
+import Entities.Transaction;
 import FileHandler.ReadStockMarket;
 import FileHandler.ReadTransactions;
 import FileHandler.ReadUsers;
@@ -23,6 +24,19 @@ public class AdminMenu {
         ph = new PortfolioHandling(userLogin.users,
                 transactionHistory.transactions, stockHandling.stocksList);
         ph.calculatePortfolio();
+
+        stockHandling.nextTransactionID = getNextTransactionID();
+    }
+
+    // beregner næste transaktionid nummer
+    private int getNextTransactionID() {
+        int maxID = 0;
+        for (Transaction t : transactionHistory.transactions) {
+            if (t.getTransactionID() > maxID) {
+                maxID = t.getTransactionID();
+            }
+        }
+        return maxID + 1;
     }
 
     public void AdminMainMenu() {

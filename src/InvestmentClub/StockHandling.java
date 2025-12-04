@@ -3,8 +3,6 @@ package InvestmentClub;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
-
 import FileHandler.ReadTransactions;
 import FileHandler.WriteTransactions;
 import Entities.Portfolio;
@@ -14,20 +12,16 @@ import Entities.User;
 import InvestmentClub.UIHelper.*;
 
 public class StockHandling {
-    public ArrayList<Portfolio> portfolioList = new ArrayList<>();
-    private int nextTransactionID;
+    public int nextTransactionID;
     public static ArrayList<Stock> stocksList = new ArrayList<>();
 
     public StockHandling(ArrayList<String[]> stockData) {
         makeStocks(stockData, stocksList);
         stocksList.sort(Stock.AlphabeticalByName);
-        int startpoint = 22;
-        this.nextTransactionID = startpoint + (nextTransactionID + 1);
+        this.nextTransactionID = 23;
     }
 
-    public StockHandling() {
-
-    }
+    public StockHandling() {}
 
     public void makeStocks(ArrayList<String[]> stockData, ArrayList<Stock> stocksList) {
         for (String[] strings : stockData) {
@@ -52,15 +46,6 @@ public class StockHandling {
 
         return localDate.format(format);
     }
-
-    public Portfolio findPortfolio(int userID) {
-        for (Portfolio p : portfolioList)
-            if (p.getUserID() == userID) {
-                return p;
-            }
-        return null;
-    }
-
 
     public void buyStock(User currentUser, PortfolioHandling portfolioHandling) {
 //        System.out.println("""
