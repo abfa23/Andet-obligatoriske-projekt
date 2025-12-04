@@ -1,14 +1,11 @@
 package InvestmentClub;
 
-import Entities.Transaction;
 import Entities.User;
 import Entities.Stock;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 import static InvestmentClub.StockHandling.*;
-import static InvestmentClub.UserLogin.getCurrentUserID;
 
 public class UIHelper {
     private static final String DOUBLE_LINE = "═════════════════════════════════════════════════════════════════════════════════";
