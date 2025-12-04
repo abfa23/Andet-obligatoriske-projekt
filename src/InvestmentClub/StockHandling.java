@@ -134,25 +134,17 @@ public class StockHandling {
         WriteTransactions writer = new WriteTransactions(transaction, this);
         writer.writer();
 
-
+        // Reload alt
         ReadTransactions readTrans = new ReadTransactions();
         TransactionHistory transactionHistory = new TransactionHistory(readTrans.reader());
         portfolioHandling.transactions = transactionHistory.transactions;
+
+        // Fjerner gammel data
+        portfolioHandling.portfolioList.clear();
         portfolioHandling.calculatePortfolio();
 
-        // opdatere StockHandling's portfolioList
-        this.portfolioList = portfolioHandling.portfolioList;
-
-        p = null;
-        for (Portfolio portfolio : portfolioHandling.portfolioList) {
-            if (portfolio.getUserID() == currentUser.getUserID()) {
-                p = portfolio;
-                break;
-            }
-        }
-
         nextTransactionID++;
-        System.out.println("\n Køb gennemført!");
+        System.out.println("\nKøb gennemført!");
         System.out.println("Du har købt " + shares + " aktier af " + selectedStock.getTicker());
     }
 
@@ -225,31 +217,21 @@ public class StockHandling {
             return;
         }
 
-        Transaction transaction = new Transaction(nextTransactionID, currentUser.getUserID(), currentDate(), ticker, selectedStock.getPrice(), selectedStock.getCurrency(), "Sell", shares);
+        Transaction transaction = new Transaction(nextTransactionID, currentUser.getUserID(), currentDate(), ticker, selectedStock.getPrice(), selectedStock.getCurrency(), "sell", shares);
         WriteTransactions writer = new WriteTransactions(transaction, this);
         writer.writer();
 
-        // Genkører hele processen
+        // Reloader alt
         ReadTransactions readTrans = new ReadTransactions();
         TransactionHistory transactionHistory = new TransactionHistory(readTrans.reader());
         portfolioHandling.transactions = transactionHistory.transactions;
+
+        // Fjerner gammel data
+        portfolioHandling.portfolioList.clear();
         portfolioHandling.calculatePortfolio();
 
-        // Opdaterer StockHandling's portfolioList
-        this.portfolioList = portfolioHandling.portfolioList;
-
-        // Ny portfolio reference
-        p = null;
-        for (Portfolio portfolio : portfolioHandling.portfolioList) {
-            if (portfolio.getUserID() == currentUser.getUserID()) {
-                p = portfolio;
-                break;
-            }
-        }
-
         nextTransactionID++;
-
-        System.out.println("\nSalg gennemført.");
+        System.out.println("\nSalg gennemført!");
         System.out.println("Du har solgt " + shares + " aktier af " + ticker);
     }
 
