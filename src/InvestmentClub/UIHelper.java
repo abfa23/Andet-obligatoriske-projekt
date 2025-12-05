@@ -124,7 +124,6 @@ public class UIHelper {
     public static void waitForEnter() {
         System.out.println("\nTryk Enter for at fortsætte...");
         try {
-
             do {
                 System.in.read();
             } while (System.in.available() > 0);

@@ -100,7 +100,7 @@ public class PortfolioHandling {
 
         if (userPortfolio == null) {
             throw new ExceptionHandler("userPortfolio == null, fejl i programmet. \n" +
-                    "linje 60 - PortfolioHandling");
+                    "linje 101 - PortfolioHandling");
         }
 
         UIHelper.printHeader("DIT PORTEFØLJE");

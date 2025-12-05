@@ -11,7 +11,7 @@ public class StockHandlingTest {
     public void testTimeStamp() {
         StockHandling ts = new StockHandling();
 
-        //indsat dato - "dd.MM.yyyy"
+        //indtast dato - "dd.MM.yyyy"
         assertEquals("04.12.2025" , ts.currentDate());
     }
 }
