@@ -7,6 +7,8 @@ import Menu.UserMenu;
 
 import java.util.ArrayList;
 
+import static InvestmentClub.StockHandling.stocksList;
+
 public class UserLogin {
     public static ScannerHelper sc = new ScannerHelper();
     //ved succesfuld login gemmer user objekter og id af personen logget ind
@@ -19,6 +21,8 @@ public class UserLogin {
     public UserLogin(ArrayList<String[]> data) {
         makeUsers(data, users);
     }
+
+    public UserLogin() {}
 
     public static User getCurrentUser() {
         return currentUser;
@@ -129,10 +133,15 @@ public class UserLogin {
     }
 
     public void logout() {
-        System.out.println("logger ud...");
+        UserLogin ul = new UserLogin();
+        StockHandling  sh = new StockHandling();
+        System.out.println("Logger ud...");
 
+        // clear alle program informationer
         currentUser = null;
         currentUserID = 0;
+        ul.users.clear();
+        stocksList.clear();
 
         System.out.println("Du er nu logget ud.");
     }
