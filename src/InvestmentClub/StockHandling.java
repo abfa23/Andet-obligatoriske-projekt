@@ -24,7 +24,7 @@ public class StockHandling {
 
     public StockHandling() {
     }
-
+    //Objekt som bruges i metode til at vise aktiemarkedet
     public void makeStocks(ArrayList<String[]> stockData, ArrayList<Stock> stocksList) {
         for (String[] strings : stockData) {
             double price = Double.parseDouble(strings[3]);
@@ -42,14 +42,14 @@ public class StockHandling {
         }
     }
 
-    public String currentDate() {
+    public String currentDate() { //Metode til at vise dato, formateret
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
         return localDate.format(format);
     }
 
-    public void displayStockMarket() {
+    public void displayStockMarket() { //metode til at vise aktiemarkedet
         UIHelper.printStockMarket();
 
         for (Stock s : stocksList) {
@@ -65,13 +65,15 @@ public class StockHandling {
     }
 
     public void buyStock(User currentUser, PortfolioHandling portfolioHandling) {
-        displayStockMarket();
+        displayStockMarket(); //metode som viser aktiemarkedet
 
         Stock selectedStock = null;
 
+        //Hvis attributten selectedstock er null, så spørger programmet det følgende vha. scannerHelperen.
         while (selectedStock == null) {
             String ticker = UserLogin.sc.askQuestion("Indtast ticker på den aktie du vil købe");
 
+            //Aktien findes via metoden findStock
             selectedStock = portfolioHandling.findStock(ticker.trim().toUpperCase());
 
             if (selectedStock == null) {
@@ -82,21 +84,26 @@ public class StockHandling {
         int shares = 0;
         boolean isValid = false;
 
+        //Mens attributten isValid er true, spørger programmet følgende
         while (!isValid) {
             String sharesInput = UserLogin.sc.askQuestion("Hvor mange aktier vil du købe?");
 
+            //Input validation: Hvis attributten sharesInput er null, udskriver programmet følgende
             if (sharesInput == null) {
                 System.out.println("Fejl: Feltet må ikke være tomt");
                 continue;
             }
 
+            //Input validation
             if (!InputHandler.ValidateInputIsInt(sharesInput)) {
                 System.out.println("Fejl: Du skal indtaste et tal");
                 continue;
             }
 
+            //Parser attribut int shares til at være String så man kan sætte det i lig med String sharesInput
             shares = Integer.parseInt(sharesInput);
 
+            //input validering
             if (shares <= 0) {
                 System.out.println("Fejl: Du skal købe mindst 1 aktie");
                 continue;
@@ -104,6 +111,7 @@ public class StockHandling {
             isValid = true;
         }
 
+        //Kører igennem portfolio listen og finder userID via getter
         Portfolio p = null;
         for (Portfolio portfolio : portfolioHandling.portfolioList) {
             if (portfolio.getUserID() == currentUser.getUserID()) {
@@ -112,11 +120,12 @@ public class StockHandling {
             }
         }
 
+        //input validering
         if (p == null) {
             System.out.println("Fejl: Kunne ikke finde portfolio for userID: " + currentUser.getUserID());
             return;
         }
-
+        //totalPrice attribut som ganger getPrice med shares.
         double totalPrice = selectedStock.getPrice() * shares;
 
         UIHelper.printBuySummary(selectedStock, shares, totalPrice, p.getBalance());
@@ -128,17 +137,18 @@ public class StockHandling {
             return;
         }
 
+        //Input validering til bekræft af køb
         boolean validConfirmation = false;
         while (!validConfirmation) {
             String confirmation = UserLogin.sc.askQuestion("Vil du bekræfte købet? (ja/nej)");
-
+            //input validering
             if (confirmation == null) {
                 System.out.println("Fejl: Du skal indtaste ja eller nej");
                 continue;
             }
 
             confirmation = confirmation.trim();
-
+            //Input validering til annullering af køb
             if (confirmation.equalsIgnoreCase("ja")) {
                 validConfirmation = true;
             } else if (confirmation.equalsIgnoreCase("nej")) {
@@ -148,7 +158,7 @@ public class StockHandling {
                 System.out.println("Fejl: Ugydligt input. Indtast venligst ja eller nej");
             }
         }
-
+        //Laver en transaction objekt
         Transaction transaction = new Transaction(
                 nextTransactionID,
                 currentUser.getUserID(),
@@ -159,7 +169,7 @@ public class StockHandling {
                 "buy",
                 shares
         );
-
+        //Bruger writer til at skrive til transaction CSV via objektet ovenover.
         WriteTransactions writer = new WriteTransactions(transaction, this);
         writer.writer();
 
@@ -172,7 +182,8 @@ public class StockHandling {
         portfolioHandling.portfolioList.clear();
         portfolioHandling.calculatePortfolio();
 
-        nextTransactionID++;
+
+        nextTransactionID++; //Hver gang et køb laves, vil denne attribut gemme købet som et tal i en kronologisk rækkefølge
         System.out.println("\nKøb gennemført!");
         System.out.println("Du har købt " + shares + " aktier af " + selectedStock.getTicker());
     }
