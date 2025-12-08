@@ -205,7 +205,7 @@ public class PortfolioHandling {
 
         System.out.println("│                                SEKTOR STATISTIK                               │");
         System.out.println("├───────────────────────────────────────────────┬───────────────────────────────┤");
-        System.out.printf("│ %-45s │ %-29s │%n", "Sektor navn", "Antal aktier købt i sektor");
+        System.out.printf("│ %-45s │ %-29s │%n", "Sektor navn", "Antal aktier");
         System.out.println("├───────────────────────────────────────────────┼───────────────────────────────┤");
 
         for (HashMap.Entry<String, Integer> e : sector.entrySet()) {
@@ -215,7 +215,7 @@ public class PortfolioHandling {
         System.out.println("─────────────────────────────────────────────────────────────────────────────────");
         System.out.println("│                                AKTIE STATISTIK                                │");
         System.out.println("├───────────────────────────────────────────────┬───────────────────────────────┤");
-        System.out.printf("│ %-45s │ %-29s │%n", "Ticker", "Antal aktier/bruger");
+        System.out.printf("│ %-45s │ %-29s │%n", "Ticker", "Antal aktier");
         System.out.println("├───────────────────────────────────────────────┼───────────────────────────────┤");
 
         for (HashMap.Entry<String, Integer> e : stock.entrySet()) {
